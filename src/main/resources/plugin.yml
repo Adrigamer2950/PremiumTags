@@ -1,0 +1,9 @@
+name: AdriTags
+version: '${version}'
+author: Adrigamer2950
+main: me.adrigamer2950.adritags.AdriTags
+api-version: '1.18'
+website: https://github.com/Adrigamer2950/AdriTags
+
+depend:
+  - AdriAPI
