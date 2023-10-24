@@ -7,3 +7,8 @@ website: https://github.com/Adrigamer2950/AdriTags
 
 depend:
   - AdriAPI
+
+commands:
+  adritags:
+    usage: /adritags help
+    aliases: tags
