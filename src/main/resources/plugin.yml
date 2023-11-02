@@ -10,6 +10,5 @@ depend:
   - AdriAPI
 
 commands:
-  adritags:
-    usage: /adritags help
-    aliases: tags
+  tags:
+    usage: /tags help

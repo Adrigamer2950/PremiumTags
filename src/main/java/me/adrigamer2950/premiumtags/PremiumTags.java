@@ -18,7 +18,6 @@ public final class PremiumTags extends JavaPlugin {
     public void onEnable() {
         this.commandManager = new CommandManager(this);
 
-        this.commandManager.registerCommand(new MainCommand(this, "adritags", List.of("tags")));
         this.commandManager.registerCommand(new MainCommand(this, "tags"));
 
         logger.log("&aEnabled");
