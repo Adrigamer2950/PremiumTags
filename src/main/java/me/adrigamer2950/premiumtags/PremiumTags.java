@@ -1,13 +1,13 @@
-package me.adrigamer2950.adritags;
+package me.adrigamer2950.premiumtags;
 
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
 import me.adrigamer2950.adriapi.api.logger.APILogger;
-import me.adrigamer2950.adritags.commands.MainCommand;
+import me.adrigamer2950.premiumtags.commands.MainCommand;
+import me.adrigamer2950.premiumtags.objects.Tag;
+import me.adrigamer2950.premiumtags.managers.TagsManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.List;
-
-public final class AdriTags extends JavaPlugin {
+public final class PremiumTags extends JavaPlugin {
 
     private final APILogger logger = new APILogger(this.getDescription().getName(), null);
 
@@ -19,6 +19,7 @@ public final class AdriTags extends JavaPlugin {
         this.commandManager = new CommandManager(this);
 
         this.commandManager.registerCommand(new MainCommand(this, "adritags", List.of("tags")));
+        this.commandManager.registerCommand(new MainCommand(this, "tags"));
 
         logger.log("&aEnabled");
     }

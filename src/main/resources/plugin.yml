@@ -1,9 +1,10 @@
-name: AdriTags
+name: PremiumTags
 version: '${version}'
 author: Adrigamer2950
-main: me.adrigamer2950.adritags.AdriTags
+main: me.adrigamer2950.premiumtags.PremiumTags
 api-version: '1.18'
 website: https://github.com/Adrigamer2950/AdriTags
+website: https://github.com/Adrigamer2950/PremiumTags
 
 depend:
   - AdriAPI

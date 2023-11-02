@@ -16,7 +16,11 @@ repositories {
         url = "https://oss.sonatype.org/content/groups/public/"
     }
     maven {
-        url = "https://jitpack.io"
+        url = uri("https://maven.pkg.github.com/Adrigamer2950/AdriAPI")
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+            password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+        }
     }
 }
 
@@ -28,7 +32,7 @@ dependencies {
     compileOnly "org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT"
 
     // AdriAPI
-    compileOnly "com.github.Adrigamer2950:AdriAPI:1.0.0"
+    compileOnly "me.adrigamer2950:adriapi:1.1.1"
 }
 
 def targetJavaVersion = 17
