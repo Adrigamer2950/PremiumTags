@@ -20,6 +20,11 @@ public final class PremiumTags extends JavaPlugin {
 
         this.commandManager.registerCommand(new MainCommand(this, "tags"));
 
+        TagsManager.init();
+
+        TagsManager.registerTag(new Tag("test", "§a☺ §f"));
+        TagsManager.registerTag(new Tag("test2", "§a♠ §f"));
+
         logger.log("&aEnabled");
     }
 
