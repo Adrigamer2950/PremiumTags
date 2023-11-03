@@ -7,11 +7,13 @@ public class Tag {
     private final String id;
     private final String formatted;
     private final String category;
+    private final String description;
 
-    public Tag(String id, String formatted, @Nullable String category) {
+    public Tag(String id, String formatted, @Nullable String category, String description) {
         this.id = id;
         this.formatted = formatted;
         this.category = category;
+        this.description = description;
         this.playersWithTag = new HashSet<>();
     }
 
@@ -25,5 +27,9 @@ public class Tag {
 
     public String getCategory() {
         return this.category;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 }
