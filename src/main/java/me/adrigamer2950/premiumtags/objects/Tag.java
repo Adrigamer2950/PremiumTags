@@ -14,7 +14,6 @@ public class Tag {
         this.formatted = formatted;
         this.category = category;
         this.description = description;
-        this.playersWithTag = new HashSet<>();
     }
 
     public String getId() {
