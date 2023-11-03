@@ -11,7 +11,6 @@ public final class PremiumTags extends JavaPlugin {
 
     private final APILogger logger = new APILogger(this.getDescription().getName(), null);
 
-    /** Command Manager */
     private CommandManager commandManager;
 
     @Override
