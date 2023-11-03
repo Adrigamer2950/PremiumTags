@@ -22,6 +22,10 @@ repositories {
             password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
         }
     }
+    maven {
+        name = "placeholderapi"
+        url = "https://repo.extendedclip.com/content/repositories/placeholderapi/"
+    }
 }
 
 dependencies {
@@ -29,10 +33,13 @@ dependencies {
     compileOnly "org.jetbrains:annotations:24.0.1"
 
     // Spigot API
-    compileOnly "org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT"
+    compileOnly "org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT"
 
     // AdriAPI
     compileOnly "me.adrigamer2950:adriapi:1.1.1"
+
+    // PlaceHolderAPI
+    compileOnly "me.clip:placeholderapi:2.11.1"
 }
 
 def targetJavaVersion = 17

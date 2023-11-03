@@ -9,6 +9,9 @@ folia-supported: true
 depend:
   - AdriAPI
 
+softdepend:
+  - PlaceholderAPI
+
 commands:
   tags:
     usage: /tags help

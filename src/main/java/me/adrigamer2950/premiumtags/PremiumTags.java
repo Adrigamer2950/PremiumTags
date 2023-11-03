@@ -5,6 +5,8 @@ import me.adrigamer2950.adriapi.api.logger.APILogger;
 import me.adrigamer2950.premiumtags.commands.MainCommand;
 import me.adrigamer2950.premiumtags.objects.Tag;
 import me.adrigamer2950.premiumtags.managers.TagsManager;
+import me.adrigamer2950.premiumtags.placeholderapi.TagsPlaceHolderAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class PremiumTags extends JavaPlugin {
@@ -15,6 +17,9 @@ public final class PremiumTags extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
+            new TagsPlaceHolderAPI().register();
+
         this.commandManager = new CommandManager(this);
 
         this.commandManager.registerCommand(new MainCommand(this, "tags"));
