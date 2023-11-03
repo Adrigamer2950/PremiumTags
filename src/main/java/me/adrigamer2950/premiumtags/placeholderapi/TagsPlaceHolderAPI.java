@@ -39,7 +39,7 @@ public class TagsPlaceHolderAPI extends PlaceholderExpansion {
 
             return t.getId() + (!(args.length < 1) && args[1].equalsIgnoreCase("_spaced") ? " " : "");
         }
-        if(params.startsWith("tag_formatted")) {
+        if(params.startsWith("tag")) {
             Tag t = TagsManager.getPlayerTag(player);
 
             String[] args = params.split("tag_formatted");
