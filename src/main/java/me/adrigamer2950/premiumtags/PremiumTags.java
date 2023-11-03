@@ -26,8 +26,8 @@ public final class PremiumTags extends JavaPlugin {
 
         TagsManager.init();
 
-        TagsManager.registerTag(new Tag("test", "§a☺"));
-        TagsManager.registerTag(new Tag("test2", "§a♠"));
+        TagsManager.registerTag(new Tag("test", "§a☺", null));
+        TagsManager.registerTag(new Tag("test2", "§a♠", null));
 
         logger.log("&aEnabled");
     }
