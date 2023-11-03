@@ -26,7 +26,6 @@ public class TagsManager {
 
     public static void setTagToPlayer(Player p, Tag tag) {
         playerTags.put(p.getUniqueId(), tag);
-        p.setDisplayName(tag.getFormatted() + p.getDisplayName());
     }
 
     public static Tag getPlayerTag(OfflinePlayer player) {
