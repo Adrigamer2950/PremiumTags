@@ -7,10 +7,10 @@ import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class TagsPlaceHolderAPI extends PlaceholderExpansion {
+public class PAPIExpansion extends PlaceholderExpansion {
 
     private final PremiumTags plugin;
-    public TagsPlaceHolderAPI(PremiumTags plugin) {
+    public PAPIExpansion(PremiumTags plugin) {
         this.plugin = plugin;
     }
 
