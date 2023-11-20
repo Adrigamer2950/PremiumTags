@@ -9,25 +9,37 @@ import me.adrigamer2950.premiumtags.placeholderapi.TagsPlaceHolderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.*;
+
 public final class PremiumTags extends JavaPlugin {
 
     private final APILogger logger = new APILogger(this.getDescription().getName(), null);
 
     private CommandManager commandManager;
 
+    public final Set<Tag> tagList;
+    public final HashMap<UUID, Tag> playersUsingTags;
+    public final TagsManager tagsManager;
+
+    public PremiumTags() {
+        super();
+
+        this.tagList = new HashSet<>();
+        this.playersUsingTags = new HashMap<>();
+        this.tagsManager = new TagsManager(this);
+    }
+
     @Override
     public void onEnable() {
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
-            new TagsPlaceHolderAPI().register();
+            new TagsPlaceHolderAPI(this).register();
 
         this.commandManager = new CommandManager(this);
 
         this.commandManager.registerCommand(new MainCommand(this, "tags"));
 
-        TagsManager.init();
-
-        TagsManager.registerTag(new Tag("test", "§a☺", null, ""));
-        TagsManager.registerTag(new Tag("test2", "§a♠", null, ""));
+        tagsManager.registerTag(new Tag("test", "§a☺", null, ""));
+        tagsManager.registerTag(new Tag("test2", "§a♠", null, ""));
 
         logger.log("&aEnabled");
     }

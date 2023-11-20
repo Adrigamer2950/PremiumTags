@@ -1,6 +1,6 @@
 package me.adrigamer2950.premiumtags.placeholderapi;
 
-import me.adrigamer2950.premiumtags.managers.TagsManager;
+import me.adrigamer2950.premiumtags.PremiumTags;
 import me.adrigamer2950.premiumtags.objects.Tag;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
@@ -8,6 +8,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TagsPlaceHolderAPI extends PlaceholderExpansion {
+
+    private final PremiumTags plugin;
+    public TagsPlaceHolderAPI(PremiumTags plugin) {
+        this.plugin = plugin;
+    }
+
     @Override
     public @NotNull String getIdentifier() {
         return "premiumtags";
@@ -31,7 +37,7 @@ public class TagsPlaceHolderAPI extends PlaceholderExpansion {
     @Override
     public @Nullable String onRequest(OfflinePlayer player, @NotNull String params) {
         if(params.startsWith("tag_id")) {
-            Tag t = TagsManager.getPlayerTag(player);
+            Tag t = plugin.tagsManager.getPlayerTag(player);
 
             String[] args = params.split("tag_id");
 
@@ -40,7 +46,7 @@ public class TagsPlaceHolderAPI extends PlaceholderExpansion {
             return t.getId() + (!(args.length < 1) && args[1].equalsIgnoreCase("_spaced") ? " " : "");
         }
         if(params.startsWith("tag")) {
-            Tag t = TagsManager.getPlayerTag(player);
+            Tag t = plugin.tagsManager.getPlayerTag(player);
 
             String[] args = params.split("tag_formatted");
 
