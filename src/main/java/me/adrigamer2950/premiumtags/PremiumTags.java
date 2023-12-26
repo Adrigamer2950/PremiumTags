@@ -17,20 +17,16 @@ public final class PremiumTags extends JavaPlugin {
 
     private CommandManager commandManager;
 
-    public final Set<Tag> tagList;
-    public final HashMap<UUID, Tag> playersUsingTags;
-    public final TagsManager tagsManager;
-
-    public PremiumTags() {
-        super();
-
-        this.tagList = new HashSet<>();
-        this.playersUsingTags = new HashMap<>();
-        this.tagsManager = new TagsManager(this);
-    }
+    public Set<Tag> tagList;
+    public HashMap<UUID, Tag> playersUsingTags;
+    public TagsManager tagsManager;
 
     @Override
     public void onEnable() {
+        this.tagList = new HashSet<>();
+        this.playersUsingTags = new HashMap<>();
+        this.tagsManager = new TagsManager(this);
+
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
             new PAPIExpansion(this).register();
 
