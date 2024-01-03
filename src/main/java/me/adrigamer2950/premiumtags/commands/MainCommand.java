@@ -14,6 +14,8 @@ public class MainCommand extends Command {
         super(pl, name);
 
         addSubCommand(new SetSubCommand(this, "set"));
+
+        setHelpSubCommand(new HelpSubCommand(this, "help"));
     }
 
     @Override
