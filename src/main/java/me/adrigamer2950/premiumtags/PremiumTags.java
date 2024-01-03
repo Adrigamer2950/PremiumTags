@@ -17,13 +17,13 @@ public final class PremiumTags extends JavaPlugin {
 
     private CommandManager commandManager;
 
-    public Set<Tag> tagList;
+    public List<Tag> tagList;
     public HashMap<UUID, Tag> playersUsingTags;
     public TagsManager tagsManager;
 
     @Override
     public void onEnable() {
-        this.tagList = new HashSet<>();
+        this.tagList = new ArrayList<>();
         this.playersUsingTags = new HashMap<>();
         this.tagsManager = new TagsManager(this);
 

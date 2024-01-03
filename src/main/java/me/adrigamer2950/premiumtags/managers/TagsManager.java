@@ -16,7 +16,7 @@ public class TagsManager {
     }
 
     public List<Tag> getTagList() {
-        return plugin.tagList.stream().toList();
+        return plugin.tagList;
     }
 
     public void registerTag(Tag t) {
