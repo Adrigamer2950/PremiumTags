@@ -25,6 +25,10 @@ public class MainCommand extends Command {
 
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+        if(args.length < 2) {
+            return parseSubCommandsTabCompleter(sender, label, args).stream().filter(str -> str.startsWith(args[0])).collect(Collectors.toList());
+        }
+
         return parseSubCommandsTabCompleter(sender, label, args);
     }
 }
