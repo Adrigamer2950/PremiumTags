@@ -46,6 +46,11 @@ public class AddSubCommand extends SubCommand {
             return true;
         }
 
+        if(((PremiumTags) getPlugin()).tagsManager.getPlayerTags(p).stream().map(Tag::getId).toList().contains(tag.getId())) {
+            sender.sendMessage(Colors.translateColors("&cThat player already has that tag selected"));
+            return true;
+        }
+
         ((PremiumTags) getPlugin()).tagsManager.setTagToPlayer(p, tag);
         sender.sendMessage(Colors.translateColors(
                 String.format("&aTag &7[%s&7] &awas added successfully to &6%s", tag.getFormatted(), p.getName())

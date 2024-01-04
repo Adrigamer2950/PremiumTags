@@ -80,10 +80,17 @@ public class InventoryManager implements Listener {
             return;
         }
 
-        plugin.tagsManager.setTagToPlayer(p, tag);
-        p.sendMessage(Colors.translateColors(
-                String.format("&aTag &7[%s&7] &asuccessfully set", tag.getFormatted(), p.getName())
-        ));
+        if(plugin.tagsManager.getPlayerTags(p).stream().map(Tag::getId).toList().contains(tag.getId())) {
+            plugin.tagsManager.removeTagFromPlayer(p, tag);
+            p.sendMessage(Colors.translateColors(
+                    String.format("&cTag &7[%s&7] &csuccessfully removed", tag.getFormatted(), p.getName())
+            ));
+        } else {
+            plugin.tagsManager.setTagToPlayer(p, tag);
+            p.sendMessage(Colors.translateColors(
+                    String.format("&aTag &7[%s&7] &asuccessfully set", tag.getFormatted(), p.getName())
+            ));
+        }
 
         p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
         p.closeInventory();
