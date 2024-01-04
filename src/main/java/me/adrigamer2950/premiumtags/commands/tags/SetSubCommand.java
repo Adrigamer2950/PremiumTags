@@ -47,7 +47,9 @@ public class SetSubCommand extends SubCommand {
         }
 
         ((PremiumTags) getPlugin()).tagsManager.setTagToPlayer(p, tag);
-        sender.sendMessage(Colors.translateColors("&aTag added successfully"));
+        sender.sendMessage(Colors.translateColors(
+                String.format("&aTag &7[%s&7] &aadded successfully to &6%s", tag.getFormatted(), p.getName())
+        ));
 
         return true;
     }
