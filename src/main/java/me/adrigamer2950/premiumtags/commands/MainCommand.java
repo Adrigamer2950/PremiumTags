@@ -1,12 +1,15 @@
 package me.adrigamer2950.premiumtags.commands;
 
 import me.adrigamer2950.adriapi.api.command.Command;
+import me.adrigamer2950.premiumtags.PremiumTags;
 import me.adrigamer2950.premiumtags.commands.tags.SetSubCommand;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MainCommand extends Command {
 
@@ -20,6 +23,12 @@ public class MainCommand extends Command {
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
+        if(args.length < 1 && sender instanceof Player) {
+            ((PremiumTags) getPlugin()).invManager.openInventory((Player) sender);
+
+            return true;
+        }
+
         return parseSubCommands(sender, label, args);
     }
 

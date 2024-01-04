@@ -3,6 +3,7 @@ package me.adrigamer2950.premiumtags;
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
 import me.adrigamer2950.adriapi.api.logger.APILogger;
 import me.adrigamer2950.premiumtags.commands.MainCommand;
+import me.adrigamer2950.premiumtags.managers.InventoryManager;
 import me.adrigamer2950.premiumtags.objects.Tag;
 import me.adrigamer2950.premiumtags.managers.TagsManager;
 import me.adrigamer2950.premiumtags.placeholderapi.PAPIExpansion;
@@ -20,12 +21,14 @@ public final class PremiumTags extends JavaPlugin {
     public List<Tag> tagList;
     public HashMap<UUID, Tag> playersUsingTags;
     public TagsManager tagsManager;
+    public InventoryManager invManager;
 
     @Override
     public void onEnable() {
         this.tagList = new ArrayList<>();
         this.playersUsingTags = new HashMap<>();
         this.tagsManager = new TagsManager(this);
+        this.invManager = new InventoryManager(this);
 
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
             new PAPIExpansion(this).register();
@@ -43,8 +46,12 @@ public final class PremiumTags extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        logger.log("&cDisabled");
-
         this.commandManager = null;
+        this.tagList = null;
+        this.playersUsingTags = null;
+        this.tagsManager = null;
+        this.invManager = null;
+
+        logger.log("&cDisabled");
     }
 }
