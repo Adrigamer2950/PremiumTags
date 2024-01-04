@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class TagsManager {
 
@@ -20,7 +21,11 @@ public class TagsManager {
     }
 
     public void registerTag(Tag t) {
+        Objects.requireNonNull(t);
+
         plugin.tagList.add(t);
+
+        plugin.tagList.sort((tag1, tag2) -> tag2.getPriority() - tag1.getPriority());
     }
 
     public void setTagToPlayer(Player p, Tag tag) {
