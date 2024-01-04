@@ -37,6 +37,8 @@ public final class PremiumTags extends JavaPlugin {
 
         this.commandManager.registerCommand(new MainCommand(this, "tags"));
 
+        getServer().getPluginManager().registerEvents(new InventoryManager(this), this);
+
         tagsManager.registerTag(new Tag("test", "§a☺", "", 0));
         tagsManager.registerTag(new Tag("test2", "§a♠", "", 0));
         tagsManager.registerTag(new Tag("test3", "§e⭐", "", 10));

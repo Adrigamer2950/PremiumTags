@@ -5,10 +5,12 @@ import me.adrigamer2950.premiumtags.PremiumTags;
 import me.adrigamer2950.premiumtags.managers.InventoryManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -69,6 +71,7 @@ public class InvHolder implements InventoryHolder {
 
             meta.setDisplayName(Colors.translateColors(tag.getFormatted()));
             meta.setLore(lore);
+            meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "tag_item"), PersistentDataType.STRING, tag.getId());
             stack.setItemMeta(meta);
 
             inv.setItem(InventoryManager.TAG_SLOTS[i], stack);

@@ -1,11 +1,17 @@
 package me.adrigamer2950.premiumtags.managers;
 
+import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.premiumtags.PremiumTags;
 import me.adrigamer2950.premiumtags.objects.InvHolder;
+import me.adrigamer2950.premiumtags.objects.Tag;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 
 public class InventoryManager implements Listener {
 
@@ -37,12 +43,49 @@ public class InventoryManager implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-        if(e.getClickedInventory() == null)
+        if(!(e.getWhoClicked() instanceof Player))
             return;
 
-        if(!(e.getClickedInventory().getHolder() instanceof InvHolder))
+        Player p = (Player) e.getWhoClicked();
+
+        if(e.getClickedInventory() == null
+                || !(e.getClickedInventory().getHolder() instanceof InvHolder)
+                || e.getClickedInventory().getItem(e.getRawSlot()) == null
+        )
             return;
 
+        e.setCancelled(true);
 
+        ItemStack stack = e.getClickedInventory().getItem(e.getRawSlot());
+
+        if(stack == null)
+            return;
+
+        if(stack.getItemMeta() == null)
+            return;
+
+        if(!stack.getItemMeta().getPersistentDataContainer()
+                .has(new NamespacedKey(plugin, "tag_item"), PersistentDataType.STRING)
+        )
+            return;
+
+        Tag tag = plugin.tagsManager.getTag(stack.getItemMeta().getPersistentDataContainer()
+                .get(new NamespacedKey(plugin, "tag_item"), PersistentDataType.STRING));
+
+        if(tag == null) {
+            e.setCancelled(true);
+
+            plugin.invManager.openInventory(p);
+
+            return;
+        }
+
+        plugin.tagsManager.setTagToPlayer(p, tag);
+        p.sendMessage(Colors.translateColors(
+                String.format("&aTag &7[%s&7] &asuccessfully set", tag.getFormatted(), p.getName())
+        ));
+
+        p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
+        p.closeInventory();
     }
 }
