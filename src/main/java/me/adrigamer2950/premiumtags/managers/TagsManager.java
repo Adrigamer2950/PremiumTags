@@ -42,6 +42,17 @@ public class TagsManager {
         plugin.playersUsingTags.put(p.getUniqueId(), tags);
     }
 
+    public void removeTagFromPlayer(Player p, Tag tag) {
+        List<Tag> tags = plugin.playersUsingTags.get(p.getUniqueId());
+
+        if(tags == null)
+            return;
+
+        tags.remove(tag);
+
+        plugin.playersUsingTags.put(p.getUniqueId(), tags);
+    }
+
     public List<Tag> getPlayerTags(OfflinePlayer player) {
         if(plugin.playersUsingTags.get(player.getUniqueId()) == null)
             return List.of();
