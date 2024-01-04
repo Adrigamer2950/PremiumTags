@@ -19,7 +19,7 @@ public class HelpSubCommand extends SubCommand {
         List<String> list = List.of(
                 "&7-------------------[&b&lPremium&a&lTags&7]-------------------",
                 "&f&l| &6/tags help",
-                "&f&l| &6/tags set <player> <tag>",
+                "&f&l| &6/tags add <player> <tag>",
                 "&7---------------------------------------------------"
         );
 

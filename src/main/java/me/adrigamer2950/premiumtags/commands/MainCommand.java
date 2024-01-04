@@ -2,7 +2,7 @@ package me.adrigamer2950.premiumtags.commands;
 
 import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.premiumtags.PremiumTags;
-import me.adrigamer2950.premiumtags.commands.tags.SetSubCommand;
+import me.adrigamer2950.premiumtags.commands.tags.AddSubCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -16,7 +16,7 @@ public class MainCommand extends Command {
     public MainCommand(@NotNull Plugin pl, @NotNull String name) {
         super(pl, name);
 
-        addSubCommand(new SetSubCommand(this, "set"));
+        addSubCommand(new AddSubCommand(this, "add"));
 
         setHelpSubCommand(new HelpSubCommand(this, "help"));
     }

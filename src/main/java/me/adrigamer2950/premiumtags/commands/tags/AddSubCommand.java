@@ -14,9 +14,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SetSubCommand extends SubCommand {
+public class AddSubCommand extends SubCommand {
 
-    public SetSubCommand(Command parent, String name) {
+    public AddSubCommand(Command parent, String name) {
         super(parent, name);
     }
 
