@@ -37,7 +37,7 @@ public class PAPIExpansion extends PlaceholderExpansion {
     @Override
     public @Nullable String onRequest(OfflinePlayer player, @NotNull String params) {
         if(params.startsWith("tag_id")) {
-            Tag t = plugin.tagsManager.getPlayerTag(player);
+            Tag t = plugin.tagsManager.getPlayerMainTag(player);
 
             String[] args = params.split("tag_id");
 
@@ -46,7 +46,7 @@ public class PAPIExpansion extends PlaceholderExpansion {
             return t.getId() + (!(args.length < 1) && args[1].equalsIgnoreCase("_spaced") ? " " : "");
         }
         if(params.startsWith("tag")) {
-            Tag t = plugin.tagsManager.getPlayerTag(player);
+            Tag t = plugin.tagsManager.getPlayerMainTag(player);
 
             String[] args = params.split("tag_formatted");
 

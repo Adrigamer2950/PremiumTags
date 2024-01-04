@@ -19,7 +19,7 @@ public final class PremiumTags extends JavaPlugin {
     private CommandManager commandManager;
 
     public List<Tag> tagList;
-    public HashMap<UUID, Tag> playersUsingTags;
+    public HashMap<UUID, List<Tag>> playersUsingTags;
     public TagsManager tagsManager;
     public InventoryManager invManager;
 
