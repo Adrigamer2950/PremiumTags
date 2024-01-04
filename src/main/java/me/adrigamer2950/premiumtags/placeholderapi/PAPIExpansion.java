@@ -48,9 +48,15 @@ public class PAPIExpansion extends PlaceholderExpansion {
         if(params.startsWith("tag")) {
             Tag t = plugin.tagsManager.getPlayerMainTag(player);
 
-            String[] args = params.split("tag_formatted");
+            String[] args = params.split("tag");
 
             if(t == null) return "";
+
+            if(!(args.length < 1) && args[1].equalsIgnoreCase("_wrapped"))
+                return "&7[" + t.getFormatted() + "&7]";
+
+            if(!(args.length < 1) && args[1].equalsIgnoreCase("_wrapped_spaced"))
+                return "&7[" + t.getFormatted() + "&7] ";
 
             return t.getFormatted() + (!(args.length < 1) && args[1].equalsIgnoreCase("_spaced") ? " " : "");
         }
