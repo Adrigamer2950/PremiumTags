@@ -33,7 +33,6 @@ public class TagsManager {
             while (result.next()) {
                 UUID uuid;
                 try {
-                    //noinspection ResultOfMethodCallIgnored
                     uuid = UUID.fromString(result.getString("UUID"));
                 } catch (IllegalArgumentException e) {
                     statement = connection.prepareStatement("DELETE FROM PLAYERS WHERE UUID = ?");
@@ -119,6 +118,7 @@ public class TagsManager {
         if (plugin.playersUsingTags.get(player.getUniqueId()) == null || plugin.playersUsingTags.get(player.getUniqueId()).isEmpty())
             return null;
 
+        //noinspection OptionalGetWithoutIsPresent
         return plugin.playersUsingTags.get(player.getUniqueId()).stream().findFirst().get();
     }
 

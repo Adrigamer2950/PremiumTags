@@ -28,7 +28,6 @@ public final class PremiumTags extends JavaPlugin {
 
     private CommandManager commandManager;
     private ConfigManager configManager;
-    private YamlConfig configF;
 
     public List<Tag> tagList;
     public HashMap<UUID, List<Tag>> playersUsingTags;
@@ -54,7 +53,7 @@ public final class PremiumTags extends JavaPlugin {
 
         this.configManager = new ConfigManager(this);
 
-        this.configF = new YamlConfig(
+        YamlConfig configF = new YamlConfig(
                 this.getDataFolder().getAbsolutePath(),
                 "config",
                 this,
@@ -63,9 +62,9 @@ public final class PremiumTags extends JavaPlugin {
         );
 
         try {
-            this.configF.loadConfig();
+            configF.loadConfig();
 
-            this.config = new Config(this.configF);
+            this.config = new Config(configF);
 
             this.database = new H2Database(this);
 

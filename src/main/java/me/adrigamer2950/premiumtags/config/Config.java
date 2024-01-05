@@ -4,13 +4,9 @@ import me.adrigamer2950.adriapi.api.config.yaml.YamlConfig;
 
 public class Config {
 
-    private final YamlConfig yaml;
-
     public final Database Database;
 
     public Config(YamlConfig yaml) {
-        this.yaml = yaml;
-
         this.Database = new Database(yaml);
     }
 
