@@ -27,7 +27,7 @@ public class RemoveSubCommand extends SubCommand {
             return true;
         }
 
-        OfflinePlayer p = Bukkit.getOfflinePlayer(args[1]);
+        @SuppressWarnings("deprecation") OfflinePlayer p = Bukkit.getOfflinePlayer(args[1]);
         if (!p.hasPlayedBefore()) {
             sender.sendMessage(Colors.translateColors("&cPlayer not found"));
             return true;
