@@ -1,8 +1,11 @@
 package me.adrigamer2950.premiumtags;
 
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
+import me.adrigamer2950.adriapi.api.config.manager.ConfigManager;
+import me.adrigamer2950.adriapi.api.config.yaml.YamlConfig;
 import me.adrigamer2950.adriapi.api.logger.APILogger;
 import me.adrigamer2950.premiumtags.commands.MainCommand;
+import me.adrigamer2950.premiumtags.config.Config;
 import me.adrigamer2950.premiumtags.managers.InventoryManager;
 import me.adrigamer2950.premiumtags.managers.TagsManager;
 import me.adrigamer2950.premiumtags.objects.Tag;
@@ -10,24 +13,30 @@ import me.adrigamer2950.premiumtags.placeholderapi.PAPIExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 public final class PremiumTags extends JavaPlugin {
 
     public final APILogger LOGGER = new APILogger(this.getDescription().getName(), null);
 
     private CommandManager commandManager;
+    private ConfigManager configManager;
+    private YamlConfig configF;
 
     public List<Tag> tagList;
     public HashMap<UUID, List<Tag>> playersUsingTags;
     public TagsManager tagsManager;
     public InventoryManager invManager;
+    public Config config;
 
     @Override
     public void onEnable() {
         this.tagList = new ArrayList<>();
         this.playersUsingTags = new HashMap<>();
-        this.tagsManager = new TagsManager(this);
         this.invManager = new InventoryManager(this);
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
@@ -39,9 +48,29 @@ public final class PremiumTags extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new InventoryManager(this), this);
 
-        tagsManager.registerTag(new Tag("test", "§a☺", "", 0));
-        tagsManager.registerTag(new Tag("test2", "§a♠", "", 0));
-        tagsManager.registerTag(new Tag("test3", "§e⭐", "", 10));
+        this.configManager = new ConfigManager(this);
+
+        this.configF = new YamlConfig(
+                this.getDataFolder().getAbsolutePath(),
+                "config",
+                this,
+                false,
+                true
+        );
+
+        try {
+            this.configF.loadConfig();
+
+            this.config = new Config(this.configF);
+
+            this.tagsManager = new TagsManager(this);
+
+            tagsManager.registerTag(new Tag("test", "§a☺", "", 0));
+            tagsManager.registerTag(new Tag("test2", "§a♠", "", 0));
+            tagsManager.registerTag(new Tag("test3", "§e⭐", "", 10));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         LOGGER.log("&aEnabled");
     }
@@ -53,6 +82,11 @@ public final class PremiumTags extends JavaPlugin {
         this.playersUsingTags = null;
         this.tagsManager = null;
         this.invManager = null;
+
+        this.configManager.saveConfigFiles();
+
+        this.configManager = null;
+        this.config = null;
 
         LOGGER.log("&cDisabled");
     }

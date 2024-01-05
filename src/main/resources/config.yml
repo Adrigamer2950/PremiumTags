@@ -1,0 +1,8 @@
+database:
+  h2: true
+  mysql:
+    hostname: "localhost"
+    port: 3306
+    database: "premiumtags"
+    username: "root"
+    password: ""
