@@ -6,6 +6,9 @@ api-version: '1.18'
 website: https://github.com/Adrigamer2950/PremiumTags
 folia-supported: true
 
+libraries:
+  - com.h2database:h2:2.1.210
+
 depend:
   - AdriAPI
 

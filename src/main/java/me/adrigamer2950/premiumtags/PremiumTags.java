@@ -6,6 +6,8 @@ import me.adrigamer2950.adriapi.api.config.yaml.YamlConfig;
 import me.adrigamer2950.adriapi.api.logger.APILogger;
 import me.adrigamer2950.premiumtags.commands.MainCommand;
 import me.adrigamer2950.premiumtags.config.Config;
+import me.adrigamer2950.premiumtags.database.Database;
+import me.adrigamer2950.premiumtags.database.H2Database;
 import me.adrigamer2950.premiumtags.managers.InventoryManager;
 import me.adrigamer2950.premiumtags.managers.TagsManager;
 import me.adrigamer2950.premiumtags.objects.Tag;
@@ -14,6 +16,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +35,7 @@ public final class PremiumTags extends JavaPlugin {
     public TagsManager tagsManager;
     public InventoryManager invManager;
     public Config config;
+    public Database database;
 
     @Override
     public void onEnable() {
@@ -63,12 +67,16 @@ public final class PremiumTags extends JavaPlugin {
 
             this.config = new Config(this.configF);
 
+            this.database = new H2Database(this);
+
             this.tagsManager = new TagsManager(this);
 
             tagsManager.registerTag(new Tag("test", "§a☺", "", 0));
             tagsManager.registerTag(new Tag("test2", "§a♠", "", 0));
             tagsManager.registerTag(new Tag("test3", "§e⭐", "", 10));
-        } catch (IOException e) {
+
+            this.tagsManager.getDataFromDatabase();
+        } catch (IOException | SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
 
@@ -87,6 +95,7 @@ public final class PremiumTags extends JavaPlugin {
 
         this.configManager = null;
         this.config = null;
+        this.database = null;
 
         LOGGER.log("&cDisabled");
     }
