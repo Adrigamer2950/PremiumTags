@@ -14,7 +14,7 @@ import java.util.*;
 
 public final class PremiumTags extends JavaPlugin {
 
-    private final APILogger logger = new APILogger(this.getDescription().getName(), null);
+    public final APILogger LOGGER = new APILogger(this.getDescription().getName(), null);
 
     private CommandManager commandManager;
 
@@ -43,7 +43,7 @@ public final class PremiumTags extends JavaPlugin {
         tagsManager.registerTag(new Tag("test2", "§a♠", "", 0));
         tagsManager.registerTag(new Tag("test3", "§e⭐", "", 10));
 
-        logger.log("&aEnabled");
+        LOGGER.log("&aEnabled");
     }
 
     @Override
@@ -54,6 +54,6 @@ public final class PremiumTags extends JavaPlugin {
         this.tagsManager = null;
         this.invManager = null;
 
-        logger.log("&cDisabled");
+        LOGGER.log("&cDisabled");
     }
 }
