@@ -3,7 +3,6 @@ package me.adrigamer2950.premiumtags.managers;
 import me.adrigamer2950.premiumtags.PremiumTags;
 import me.adrigamer2950.premiumtags.objects.Tag;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ public class TagsManager {
         plugin.tagList.sort((tag1, tag2) -> tag2.getPriority() - tag1.getPriority());
     }
 
-    public void setTagToPlayer(Player p, Tag tag) {
+    public void setTagToPlayer(OfflinePlayer p, Tag tag) {
         List<Tag> tags = plugin.playersUsingTags.get(p.getUniqueId());
 
         if(tags == null)
@@ -42,7 +41,7 @@ public class TagsManager {
         plugin.playersUsingTags.put(p.getUniqueId(), tags);
     }
 
-    public void removeTagFromPlayer(Player p, Tag tag) {
+    public void removeTagFromPlayer(OfflinePlayer p, Tag tag) {
         List<Tag> tags = plugin.playersUsingTags.get(p.getUniqueId());
 
         if(tags == null)

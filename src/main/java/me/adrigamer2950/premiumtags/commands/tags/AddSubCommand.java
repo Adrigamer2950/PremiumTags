@@ -6,9 +6,9 @@ import me.adrigamer2950.adriapi.api.command.SubCommand;
 import me.adrigamer2950.premiumtags.PremiumTags;
 import me.adrigamer2950.premiumtags.objects.Tag;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.HumanEntity;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -27,8 +27,8 @@ public class AddSubCommand extends SubCommand {
             return true;
         }
 
-        Player p = Bukkit.getPlayer(args[1]);
-        if(p == null) {
+        OfflinePlayer p = Bukkit.getOfflinePlayer(args[1]);
+        if(!p.hasPlayedBefore()) {
             sender.sendMessage(Colors.translateColors("&cPlayer not found"));
             return true;
         }
