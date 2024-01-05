@@ -32,10 +32,10 @@ public class InvHolder implements InventoryHolder {
 
         meta.setDisplayName(" ");
 
-        for(int slot : InventoryManager.GLASS_SLOTS)
+        for (int slot : InventoryManager.GLASS_SLOTS)
             inv.setItem(slot, stack);
 
-        if(plugin.tagList.size() > 28) {
+        if (plugin.tagList.size() > 28) {
             stack = new ItemStack(Material.PAPER, 1);
             meta = stack.getItemMeta();
 
@@ -45,7 +45,7 @@ public class InvHolder implements InventoryHolder {
             inv.setItem(49, stack);
         }
 
-        for(int i = 0 ; i < plugin.tagList.size() ; i++) {
+        for (int i = 0; i < plugin.tagList.size(); i++) {
             stack = new ItemStack(Material.NAME_TAG, 1);
             meta = stack.getItemMeta();
 
@@ -58,11 +58,10 @@ public class InvHolder implements InventoryHolder {
             lore.add(Colors.translateColors(String.format("&eID: &7%s", tag.getId())));
             lore.add(Colors.translateColors(""));
 
-            if(tag.getDescription() != null
+            if (tag.getDescription() != null
                     && !tag.getDescription().equals("")
-                    && !tag.getDescription().replaceAll(" ", "").equals(""))
-            {
-                lore.add( Colors.translateColors("&bDescription: "));
+                    && !tag.getDescription().replaceAll(" ", "").equals("")) {
+                lore.add(Colors.translateColors("&bDescription: "));
                 lore.add(Colors.translateColors("&7" + tag.getDescription()));
                 lore.add(Colors.translateColors(""));
             }
@@ -77,6 +76,7 @@ public class InvHolder implements InventoryHolder {
             inv.setItem(InventoryManager.TAG_SLOTS[i], stack);
         }
     }
+
     @NotNull
     @Override
     public Inventory getInventory() {

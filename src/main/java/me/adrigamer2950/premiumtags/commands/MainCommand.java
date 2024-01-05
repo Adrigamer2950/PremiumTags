@@ -25,7 +25,7 @@ public class MainCommand extends Command {
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
-        if(args.length < 1 && sender instanceof Player) {
+        if (args.length < 1 && sender instanceof Player) {
             ((PremiumTags) getPlugin()).invManager.openInventory((Player) sender);
 
             return true;
@@ -36,7 +36,7 @@ public class MainCommand extends Command {
 
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        if(args.length < 2) {
+        if (args.length < 2) {
             return parseSubCommandsTabCompleter(sender, label, args).stream().filter(str -> str.startsWith(args[0])).collect(Collectors.toList());
         }
 

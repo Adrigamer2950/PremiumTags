@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 public class PAPIExpansion extends PlaceholderExpansion {
 
     private final PremiumTags plugin;
+
     public PAPIExpansion(PremiumTags plugin) {
         this.plugin = plugin;
     }
@@ -36,26 +37,26 @@ public class PAPIExpansion extends PlaceholderExpansion {
 
     @Override
     public @Nullable String onRequest(OfflinePlayer player, @NotNull String params) {
-        if(params.startsWith("tag_id")) {
+        if (params.startsWith("tag_id")) {
             Tag t = plugin.tagsManager.getPlayerMainTag(player);
 
             String[] args = params.split("tag_id");
 
-            if(t == null) return "";
+            if (t == null) return "";
 
             return t.getId() + (!(args.length < 1) && args[1].equalsIgnoreCase("_spaced") ? " " : "");
         }
-        if(params.startsWith("tag")) {
+        if (params.startsWith("tag")) {
             Tag t = plugin.tagsManager.getPlayerMainTag(player);
 
             String[] args = params.split("tag");
 
-            if(t == null) return "";
+            if (t == null) return "";
 
-            if(!(args.length < 1) && args[1].equalsIgnoreCase("_wrapped"))
+            if (!(args.length < 1) && args[1].equalsIgnoreCase("_wrapped"))
                 return "&7[" + t.getFormatted() + "&7]";
 
-            if(!(args.length < 1) && args[1].equalsIgnoreCase("_wrapped_spaced"))
+            if (!(args.length < 1) && args[1].equalsIgnoreCase("_wrapped_spaced"))
                 return "&7[" + t.getFormatted() + "&7] ";
 
             return t.getFormatted() + (!(args.length < 1) && args[1].equalsIgnoreCase("_spaced") ? " " : "");

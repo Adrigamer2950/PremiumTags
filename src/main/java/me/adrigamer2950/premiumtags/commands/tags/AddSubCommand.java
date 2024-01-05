@@ -28,7 +28,7 @@ public class AddSubCommand extends SubCommand {
         }
 
         OfflinePlayer p = Bukkit.getOfflinePlayer(args[1]);
-        if(!p.hasPlayedBefore()) {
+        if (!p.hasPlayedBefore()) {
             sender.sendMessage(Colors.translateColors("&cPlayer not found"));
             return true;
         }

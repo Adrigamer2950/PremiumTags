@@ -23,7 +23,7 @@ public class HelpSubCommand extends SubCommand {
                 "&7---------------------------------------------------"
         );
 
-        for(String str : list) {
+        for (String str : list) {
             commandSender.sendMessage(Colors.translateColors(str));
         }
 

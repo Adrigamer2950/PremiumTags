@@ -12,6 +12,7 @@ import java.util.Objects;
 public class TagsManager {
 
     private final PremiumTags plugin;
+
     public TagsManager(PremiumTags plugin) {
         this.plugin = plugin;
     }
@@ -31,7 +32,7 @@ public class TagsManager {
     public void setTagToPlayer(OfflinePlayer p, Tag tag) {
         List<Tag> tags = plugin.playersUsingTags.get(p.getUniqueId());
 
-        if(tags == null)
+        if (tags == null)
             tags = new ArrayList<>();
 
         tags.add(tag);
@@ -44,7 +45,7 @@ public class TagsManager {
     public void removeTagFromPlayer(OfflinePlayer p, Tag tag) {
         List<Tag> tags = plugin.playersUsingTags.get(p.getUniqueId());
 
-        if(tags == null)
+        if (tags == null)
             return;
 
         tags.remove(tag);
@@ -53,14 +54,14 @@ public class TagsManager {
     }
 
     public List<Tag> getPlayerTags(OfflinePlayer player) {
-        if(plugin.playersUsingTags.get(player.getUniqueId()) == null)
+        if (plugin.playersUsingTags.get(player.getUniqueId()) == null)
             return List.of();
 
         return plugin.playersUsingTags.get(player.getUniqueId());
     }
 
     public Tag getPlayerMainTag(OfflinePlayer player) {
-        if(plugin.playersUsingTags.get(player.getUniqueId()) == null || plugin.playersUsingTags.get(player.getUniqueId()).isEmpty())
+        if (plugin.playersUsingTags.get(player.getUniqueId()) == null || plugin.playersUsingTags.get(player.getUniqueId()).isEmpty())
             return null;
 
         return plugin.playersUsingTags.get(player.getUniqueId()).stream().findFirst().get();
