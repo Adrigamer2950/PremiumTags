@@ -37,7 +37,7 @@ public class PAPIExpansion extends PlaceholderExpansion {
 
     @Override
     public @Nullable String onRequest(OfflinePlayer player, @NotNull String params) {
-        if (params.startsWith("tag_id")) {
+        if (params.equalsIgnoreCase("tag_id") || params.split("_")[0].equals("tag_id")) {
             Tag t = plugin.tagsManager.getPlayerMainTag(player);
 
             String[] args = params.split("tag_id");
@@ -46,20 +46,17 @@ public class PAPIExpansion extends PlaceholderExpansion {
 
             return t.getId() + (!(args.length < 1) && args[1].equalsIgnoreCase("_spaced") ? " " : "");
         }
-        if (params.startsWith("tag")) {
+        if (params.equalsIgnoreCase("tag") || params.split("_")[0].equalsIgnoreCase("tag")) {
             Tag t = plugin.tagsManager.getPlayerMainTag(player);
 
-            String[] args = params.split("tag");
+            String[] args = params.split("_");
 
             if (t == null) return "";
 
-            if (!(args.length < 1) && args[1].equalsIgnoreCase("_wrapped"))
-                return "&7[" + t.getFormatted() + "&7]";
+            if (args.length >= 2 && args[1].equalsIgnoreCase("wrapped"))
+                return "&7[" + t.getFormatted() + "&7]" + (args.length > 2 && args[2].equalsIgnoreCase("spaced") ? " " : "");
 
-            if (!(args.length < 1) && args[1].equalsIgnoreCase("_wrapped_spaced"))
-                return "&7[" + t.getFormatted() + "&7] ";
-
-            return t.getFormatted() + (!(args.length < 1) && args[1].equalsIgnoreCase("_spaced") ? " " : "");
+            return t.getFormatted() + (args.length >= 2 && args[1].equalsIgnoreCase("spaced") ? " " : "");
         }
 
         return null;
