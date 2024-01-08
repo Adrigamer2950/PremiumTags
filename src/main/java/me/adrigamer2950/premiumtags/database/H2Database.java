@@ -13,7 +13,7 @@ public class H2Database extends Database {
                 plugin,
                 DatabaseType.H2,
                 "jdbc:h2:" + plugin.getDataFolder().getAbsolutePath() + "/database",
-                "MERGE INTO PLAYERS(UUID, TAGS) KEY(UUID) VALUES (?, ?);"
+                "MERGE INTO players(uuid, tags) KEY(uuid) VALUES (?, ?);",
         );
     }
 

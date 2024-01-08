@@ -26,17 +26,17 @@ public class TagsManager {
     public void getDataFromDatabase() throws ClassNotFoundException, SQLException {
         Connection connection = plugin.database.getConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM PLAYERS");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM players");
 
             ResultSet result = statement.executeQuery();
 
             while (result.next()) {
                 UUID uuid;
                 try {
-                    uuid = UUID.fromString(result.getString("UUID"));
+                    uuid = UUID.fromString(result.getString("uuid"));
                 } catch (IllegalArgumentException e) {
-                    statement = connection.prepareStatement("DELETE FROM PLAYERS WHERE UUID = ?");
-                    statement.setString(1, result.getString("UUID"));
+                    statement = connection.prepareStatement("DELETE FROM players WHERE uuid = ?");
+                    statement.setString(1, result.getString("uuid"));
 
                     statement.execute();
 
@@ -45,7 +45,7 @@ public class TagsManager {
                     return;
                 }
 
-                String[] tags = result.getString("TAGS").split(",");
+                String[] tags = result.getString("tags").split(",");
 
                 for (String id : tags) {
                     Tag t = this.getTag(id);
