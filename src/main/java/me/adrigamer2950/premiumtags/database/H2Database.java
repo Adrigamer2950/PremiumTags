@@ -14,6 +14,7 @@ public class H2Database extends Database {
                 DatabaseType.H2,
                 "jdbc:h2:" + plugin.getDataFolder().getAbsolutePath() + "/database",
                 "MERGE INTO players(uuid, tags) KEY(uuid) VALUES (?, ?);",
+                "CREATE TABLE IF NOT EXISTS players(uuid varchar, tags varchar);"
         );
     }
 

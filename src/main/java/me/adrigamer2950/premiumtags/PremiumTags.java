@@ -7,7 +7,6 @@ import me.adrigamer2950.adriapi.api.logger.APILogger;
 import me.adrigamer2950.premiumtags.commands.MainCommand;
 import me.adrigamer2950.premiumtags.config.Config;
 import me.adrigamer2950.premiumtags.database.Database;
-import me.adrigamer2950.premiumtags.database.H2Database;
 import me.adrigamer2950.premiumtags.managers.InventoryManager;
 import me.adrigamer2950.premiumtags.managers.TagsManager;
 import me.adrigamer2950.premiumtags.objects.Tag;
@@ -66,7 +65,7 @@ public final class PremiumTags extends JavaPlugin {
 
             this.config = new Config(configF);
 
-            this.database = new H2Database(this);
+            this.database = Database.getDatabase(this);
 
             this.tagsManager = new TagsManager(this);
 

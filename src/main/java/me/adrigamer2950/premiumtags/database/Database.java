@@ -12,18 +12,24 @@ import java.util.Objects;
 
 public abstract class Database {
 
+    protected final PremiumTags plugin;
+
     protected final SubLogger LOGGER;
 
     protected final String url;
 
     protected final String updatePlayersTagsQuery;
+    protected final String createTableQuery;
 
-    protected Database(PremiumTags plugin, DatabaseType type, String url, String updatePlayersTagsQuery) throws SQLException, ClassNotFoundException {
+    protected Database(PremiumTags plugin, DatabaseType type, String url, String updatePlayersTagsQuery, String createTableQuery) throws SQLException, ClassNotFoundException {
         this.LOGGER = new SubLogger(type.name() + " Database", plugin.LOGGER);
 
         this.url = url;
 
         this.updatePlayersTagsQuery = updatePlayersTagsQuery;
+        this.createTableQuery = createTableQuery;
+
+        this.plugin = plugin;
 
         initDatabase();
     }
@@ -39,7 +45,7 @@ public abstract class Database {
         Connection connection = getConnection();
         PreparedStatement statement;
         try {
-            statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS Players(UUID varchar, TAGS varchar);");
+            statement = connection.prepareStatement(this.createTableQuery);
 
             statement.execute();
 
@@ -53,7 +59,7 @@ public abstract class Database {
         }
     }
 
-    public final void updatePlayersTagsAtDB(String uuid, List<Tag> tags) throws SQLException, ClassNotFoundException {
+    public void updatePlayersTagsAtDB(String uuid, List<Tag> tags) throws SQLException, ClassNotFoundException {
         @SuppressWarnings("OptionalGetWithoutIsPresent")
         Tag firstT = tags.stream().findFirst().get();
 
@@ -79,5 +85,12 @@ public abstract class Database {
 
             throw new RuntimeException(e);
         }
+    }
+
+    public static Database getDatabase(PremiumTags plugin) throws SQLException, ClassNotFoundException {
+        if(plugin.config.Database.H2)
+            return new H2Database(plugin);
+        else
+            return new MySQLDatabase(plugin);
     }
 }
