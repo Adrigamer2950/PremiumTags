@@ -20,6 +20,8 @@ public class HelpSubCommand extends SubCommand {
                 "&7-------------------[&b&lPremium&a&lTags&7]-------------------",
                 "&f&l| &6/tags help",
                 "&f&l| &6/tags add <player> <tag>",
+                "&f&l| &6/tags remove <player> <tag>",
+                "&f&l| &6/tags list <player>",
                 "&7---------------------------------------------------"
         );
 
