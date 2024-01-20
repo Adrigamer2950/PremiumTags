@@ -23,34 +23,40 @@ public class ListSubCommand extends SubCommand {
     @Override
     public boolean execute(CommandSender sender, String s, String[] args) {
         if(args.length < 2) {
-            sender.sendMessage(Colors.translateColors("&cYou must name a player!"));
-            return true;
+            List<Tag> tags = ((PremiumTags) getPlugin()).tagList;
+
+            sender.sendMessage(Colors.translateColors("&aTag list:"));
+
+            for(Tag t : tags) {
+                sender.sendMessage(Colors.translateColors(String.format("&f| &6%s&7: &6%s", t.getId(), "&7[&r" + t.getFormatted() + "&7]&r")));
+            }
+        } else {
+            @SuppressWarnings("deprecation") OfflinePlayer p = Bukkit.getOfflinePlayer(args[1]);
+            if (!p.hasPlayedBefore()) {
+                sender.sendMessage(Colors.translateColors("&cPlayer not found"));
+                return true;
+            }
+
+            List<Tag> tags = ((PremiumTags) getPlugin()).playersUsingTags.get(p.getUniqueId());
+
+            if (tags == null || tags.isEmpty()) {
+                sender.sendMessage(Colors.translateColors("&cThat players doesn't have any tag selected!"));
+
+                return true;
+            }
+
+            StringBuilder tagsStr = new StringBuilder("&7[" + tags.stream().findFirst().get().getFormatted() + "&7]");
+
+            for (int i = 1; i < tags.size(); i++) {
+                Tag t = tags.get(i);
+
+                tagsStr.append("&f, &7[").append(t.getFormatted()).append("&7]");
+            }
+
+            sender.sendMessage(Colors.translateColors("&7| &6" + p.getName() + "'s &fTags:"));
+            sender.sendMessage(Colors.translateColors("&7| " + tagsStr));
+
         }
-
-        @SuppressWarnings("deprecation") OfflinePlayer p = Bukkit.getOfflinePlayer(args[1]);
-        if (!p.hasPlayedBefore()) {
-            sender.sendMessage(Colors.translateColors("&cPlayer not found"));
-            return true;
-        }
-
-        List<Tag> tags = ((PremiumTags) getPlugin()).playersUsingTags.get(p.getUniqueId());
-
-        if(tags == null || tags.isEmpty()) {
-            sender.sendMessage(Colors.translateColors("&cThat players doesn't have any tag selected!"));
-
-            return true;
-        }
-
-        StringBuilder tagsStr = new StringBuilder("&7[" + tags.stream().findFirst().get().getFormatted() + "&7]");
-
-        for(int i = 1 ; i < tags.size() ; i++) {
-            Tag t = tags.get(i);
-
-            tagsStr.append("&f, &7[").append(t.getFormatted()).append("&7]");
-        }
-
-        sender.sendMessage(Colors.translateColors("&7| &6" + p.getName() + "'s &fTags:"));
-        sender.sendMessage(Colors.translateColors("&7| " + tagsStr));
 
         return true;
     }

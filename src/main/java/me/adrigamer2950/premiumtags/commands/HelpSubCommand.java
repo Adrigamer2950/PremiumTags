@@ -18,10 +18,11 @@ public class HelpSubCommand extends SubCommand {
     public boolean execute(CommandSender commandSender, String s, String[] strings) {
         List<String> list = List.of(
                 "&7-------------------[&b&lPremium&a&lTags&7]-------------------",
+                "&7<> arguments are necessary, [] arguments are optional",
                 "&f&l| &6/tags help",
                 "&f&l| &6/tags add <player> <tag>",
                 "&f&l| &6/tags remove <player> <tag>",
-                "&f&l| &6/tags list <player>",
+                "&f&l| &6/tags list [player]",
                 "&f&l| &6/tags create <id> <priority> <tag>",
                 "&f&l| &6/tags delete <id>",
                 "&7---------------------------------------------------"
