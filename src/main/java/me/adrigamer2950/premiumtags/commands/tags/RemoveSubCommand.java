@@ -65,7 +65,11 @@ public class RemoveSubCommand extends SubCommand {
         if (args.length < 3)
             return Bukkit.getOnlinePlayers().stream().map(HumanEntity::getName).filter(name -> name.toLowerCase().startsWith(args[1])).collect(Collectors.toList());
         if (args.length < 4)
-            return ((PremiumTags) getPlugin()).tagsManager.getTagList().stream().map(Tag::getId).filter(id -> id.toLowerCase().startsWith(args[2])).collect(Collectors.toList());
+            return ((PremiumTags) getPlugin())
+                    .tagsManager.getTagList().stream().map(Tag::getId)
+                    .filter(tag ->
+                            ((PremiumTags) getPlugin()).tagsManager.getPlayerTags((OfflinePlayer) sender).stream().map(Tag::getId).collect(Collectors.toSet()).contains(tag))
+                    .filter(id -> id.toLowerCase().startsWith(args[2])).collect(Collectors.toList());
 
         return null;
     }
