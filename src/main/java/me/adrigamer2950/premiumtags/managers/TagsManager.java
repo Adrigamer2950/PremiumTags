@@ -71,6 +71,12 @@ public class TagsManager {
         plugin.tagList.sort((tag1, tag2) -> tag2.getPriority() - tag1.getPriority());
     }
 
+    public void unRegisterTag(Tag t) {
+        Objects.requireNonNull(t);
+
+        plugin.tagList.remove(t);
+    }
+
     public void setTagToPlayer(OfflinePlayer p, Tag tag) {
         List<Tag> tags = plugin.playersUsingTags.get(p.getUniqueId());
 
