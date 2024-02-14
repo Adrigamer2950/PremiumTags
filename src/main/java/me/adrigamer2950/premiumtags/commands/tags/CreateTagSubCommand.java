@@ -21,7 +21,7 @@ public class CreateTagSubCommand extends SubCommand {
     public boolean execute(CommandSender sender, String s, String[] args) {
         args = Arrays.copyOfRange(args, 1, args.length);
 
-        if(args.length == 0) {
+        if (args.length == 0) {
             sender.sendMessage(Colors.translateColors("&cYou need to specify an id"));
 
             return true;
@@ -29,7 +29,7 @@ public class CreateTagSubCommand extends SubCommand {
 
         String id = args[0];
 
-        if(args.length == 1) {
+        if (args.length == 1) {
             sender.sendMessage(Colors.translateColors("&cYou need to specify a priority"));
 
             return true;
@@ -45,13 +45,13 @@ public class CreateTagSubCommand extends SubCommand {
         }
 
 
-        if(args.length == 2) {
+        if (args.length == 2) {
             sender.sendMessage(Colors.translateColors("&cYou need to specify a tag"));
 
             return true;
         }
 
-        if(((PremiumTags) getPlugin()).tagsManager.getTag(id) != null) {
+        if (((PremiumTags) getPlugin()).tagsManager.getTag(id) != null) {
             sender.sendMessage(Colors.translateColors("&cTag already exists"));
 
             return true;
@@ -59,7 +59,7 @@ public class CreateTagSubCommand extends SubCommand {
 
         String tag = String.join(" ", Arrays.copyOfRange(args, 2, args.length)).replaceAll("\"", "");
 
-        ((PremiumTags) getPlugin()).tagsManager.registerTag(new Tag(id, tag, "", priority));
+        ((PremiumTags) getPlugin()).tagsManager.registerTag(new Tag(id, tag, "", priority), true);
 
         sender.sendMessage(Colors.translateColors("&aTag created successfully"));
 

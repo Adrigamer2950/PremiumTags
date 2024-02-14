@@ -51,7 +51,7 @@ public class RemoveSubCommand extends SubCommand {
             return true;
         }
 
-        ((PremiumTags) getPlugin()).tagsManager.removeTagFromPlayer(p, tag);
+        ((PremiumTags) getPlugin()).tagsManager.removeTagFromPlayer(p.getUniqueId(), tag);
         sender.sendMessage(Colors.translateColors(
                 String.format("&aTag &7[%s&7] &awas removed successfully from &6%s", tag.getFormatted(), p.getName())
         ));

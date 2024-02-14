@@ -21,7 +21,7 @@ public class DeleteTagSubCommand extends SubCommand {
     public boolean execute(CommandSender sender, String s, String[] args) {
         args = Arrays.copyOfRange(args, 1, args.length);
 
-        if(args.length == 0) {
+        if (args.length == 0) {
             sender.sendMessage(Colors.translateColors("&cYou need to specify an id"));
 
             return true;
@@ -31,13 +31,21 @@ public class DeleteTagSubCommand extends SubCommand {
 
         Tag t = ((PremiumTags) getPlugin()).tagsManager.getTag(id);
 
-        if(t == null) {
+        if (t == null) {
             sender.sendMessage(Colors.translateColors("&cTag not found"));
 
             return true;
         }
 
-        ((PremiumTags) getPlugin()).tagsManager.unRegisterTag(t);
+        ((PremiumTags) getPlugin()).tagsManager.unRegisterTag(t, true);
+
+        ((PremiumTags) getPlugin()).database.removeTag(t.getId());
+
+        ((PremiumTags) getPlugin()).playersUsingTags.forEach((uuid, tags) -> {
+            if(tags.stream().map(Tag::getId).toList().contains(t.getId())) tags.remove(t);
+
+            ((PremiumTags) getPlugin()).playersUsingTags.put(uuid, tags);
+        });
 
         sender.sendMessage(Colors.translateColors("&cTag deleted successfully"));
 

@@ -35,14 +35,18 @@ public final class PremiumTags extends JavaPlugin {
     public Config config;
     public Database database;
 
+    private PAPIExpansion papi;
+
     @Override
     public void onEnable() {
         this.tagList = new ArrayList<>();
         this.playersUsingTags = new HashMap<>();
         this.invManager = new InventoryManager(this);
 
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
-            new PAPIExpansion(this).register();
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            papi = new PAPIExpansion(this);
+            papi.register();
+        }
 
         this.commandManager = new CommandManager(this);
 
@@ -65,15 +69,10 @@ public final class PremiumTags extends JavaPlugin {
 
             this.config = new Config(configF);
 
-            this.database = Database.getDatabase(this);
-
             this.tagsManager = new TagsManager(this);
 
-            tagsManager.registerTag(new Tag("test", "§a☺", "", 0));
-            tagsManager.registerTag(new Tag("test2", "§a♠", "", 0));
-            tagsManager.registerTag(new Tag("test3", "§e⭐", "", 10));
+            this.database = Database.getDatabase(this);
 
-            this.tagsManager.getDataFromDatabase();
         } catch (IOException | SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -83,14 +82,16 @@ public final class PremiumTags extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        this.configManager.saveConfigFiles();
+        this.database.saveTags();
+
+        papi.unregister();
+
         this.commandManager = null;
         this.tagList = null;
         this.playersUsingTags = null;
         this.tagsManager = null;
         this.invManager = null;
-
-        this.configManager.saveConfigFiles();
-
         this.configManager = null;
         this.config = null;
         this.database = null;

@@ -2,13 +2,8 @@ package me.adrigamer2950.premiumtags.managers;
 
 import me.adrigamer2950.premiumtags.PremiumTags;
 import me.adrigamer2950.premiumtags.objects.Tag;
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 
 public class TagsManager {
@@ -23,62 +18,26 @@ public class TagsManager {
         return plugin.tagList;
     }
 
-    public void getDataFromDatabase() throws ClassNotFoundException, SQLException {
-        Connection connection = plugin.database.getConnection();
-        try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM players");
-
-            ResultSet result = statement.executeQuery();
-
-            while (result.next()) {
-                UUID uuid;
-                try {
-                    uuid = UUID.fromString(result.getString("uuid"));
-                } catch (IllegalArgumentException e) {
-                    statement = connection.prepareStatement("DELETE FROM players WHERE uuid = ?");
-                    statement.setString(1, result.getString("uuid"));
-
-                    statement.execute();
-
-                    connection.close();
-
-                    return;
-                }
-
-                String[] tags = result.getString("tags").split(",");
-
-                for (String id : tags) {
-                    Tag t = this.getTag(id);
-                    if (t == null) continue;
-
-                    this.setTagToPlayer(Bukkit.getOfflinePlayer(uuid), t);
-                }
-            }
-
-            connection.close();
-        } catch (SQLException e) {
-            connection.close();
-
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void registerTag(Tag t) {
+    public void registerTag(Tag t, boolean saveToDB) {
         Objects.requireNonNull(t);
 
         plugin.tagList.add(t);
 
         plugin.tagList.sort((tag1, tag2) -> tag2.getPriority() - tag1.getPriority());
+
+        if(saveToDB) plugin.database.saveTags();
     }
 
-    public void unRegisterTag(Tag t) {
+    public void unRegisterTag(Tag t, boolean saveToDB) {
         Objects.requireNonNull(t);
 
         plugin.tagList.remove(t);
+
+        if(saveToDB) plugin.database.saveTags();
     }
 
-    public void setTagToPlayer(OfflinePlayer p, Tag tag) {
-        List<Tag> tags = plugin.playersUsingTags.get(p.getUniqueId());
+    public void setTagToPlayer(UUID uuid, Tag tag) {
+        List<Tag> tags = plugin.playersUsingTags.get(uuid);
 
         if (tags == null)
             tags = new ArrayList<>();
@@ -87,30 +46,22 @@ public class TagsManager {
 
         tags.sort((tag1, tag2) -> tag2.getPriority() - tag1.getPriority());
 
-        plugin.playersUsingTags.put(p.getUniqueId(), tags);
+        plugin.playersUsingTags.put(uuid, tags);
 
-        try {
-            plugin.database.updatePlayersTagsAtDB(p.getUniqueId().toString(), tags);
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        plugin.database.updatePlayerTags(uuid, tags);
     }
 
-    public void removeTagFromPlayer(OfflinePlayer p, Tag tag) {
-        List<Tag> tags = plugin.playersUsingTags.get(p.getUniqueId());
+    public void removeTagFromPlayer(UUID uuid, Tag tag) {
+        List<Tag> tags = plugin.playersUsingTags.get(uuid);
 
         if (tags == null)
             return;
 
         tags.remove(tag);
 
-        plugin.playersUsingTags.put(p.getUniqueId(), tags);
+        plugin.playersUsingTags.put(uuid, tags);
 
-        try {
-            plugin.database.updatePlayersTagsAtDB(p.getUniqueId().toString(), tags);
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        plugin.database.updatePlayerTags(uuid, tags);
     }
 
     public List<Tag> getPlayerTags(OfflinePlayer player) {
