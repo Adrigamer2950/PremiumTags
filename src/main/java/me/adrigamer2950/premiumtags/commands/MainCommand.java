@@ -23,6 +23,8 @@ public class MainCommand extends Command {
         addSubCommand(new CreateTagSubCommand(this, "create"));
         addSubCommand(new DeleteTagSubCommand(this, "delete"));
 
+        addSubCommand(new ReloadSubCommand(this, "reload"));
+
         setHelpSubCommand(new HelpSubCommand(this, "help"));
     }
 

@@ -25,6 +25,7 @@ public class HelpSubCommand extends SubCommand {
                 "&f&l| &6/tags list [player]",
                 "&f&l| &6/tags create <id> <priority> <tag>",
                 "&f&l| &6/tags delete <id>",
+                "&f&l| &6/tags reload",
                 "&7---------------------------------------------------"
         );
 
