@@ -43,10 +43,8 @@ public class InventoryManager implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-        if(!(e.getWhoClicked() instanceof Player))
+        if(!(e.getWhoClicked() instanceof Player p))
             return;
-
-        Player p = (Player) e.getWhoClicked();
 
         if(e.getClickedInventory() == null
                 || !(e.getClickedInventory().getHolder() instanceof InvHolder)
@@ -83,12 +81,12 @@ public class InventoryManager implements Listener {
         if(plugin.tagsManager.getPlayerTags(p).stream().map(Tag::getId).toList().contains(tag.getId())) {
             plugin.tagsManager.removeTagFromPlayer(p.getUniqueId(), tag);
             p.sendMessage(Colors.translateColors(
-                    String.format("&cTag &7[%s&7] &csuccessfully removed", tag.getFormatted(), p.getName())
+                    String.format("&cTag &7[%s&7] &csuccessfully removed", tag.getFormatted())
             ));
         } else {
             plugin.tagsManager.setTagToPlayer(p.getUniqueId(), tag);
             p.sendMessage(Colors.translateColors(
-                    String.format("&aTag &7[%s&7] &asuccessfully set", tag.getFormatted(), p.getName())
+                    String.format("&aTag &7[%s&7] &asuccessfully set", tag.getFormatted())
             ));
         }
 
