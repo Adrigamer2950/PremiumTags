@@ -65,41 +65,6 @@ public abstract class SqlLikeDatabase extends Database {
     }
 
     @Override
-    public Tag getTag(String id) {
-        Connection connection = null;
-
-        try {
-            connection = getConnection();
-
-            PreparedStatement statement = connection.prepareStatement("select * from tags where id = ? limit 1");
-
-            statement.setString(1, id);
-
-            ResultSet result = statement.executeQuery();
-
-            if (result.next()) {
-                String tag = result.getString(2);
-                String description = result.getString(3);
-                int priority = result.getInt(4);
-
-                return new Tag(id, tag, description, priority);
-            }
-
-            connection.close();
-        } catch (ClassNotFoundException | SQLException e) {
-            if (connection != null)
-                try {
-                    connection.close();
-                } catch (SQLException ignored) {
-                }
-
-            throw new RuntimeException(e);
-        }
-
-        return null;
-    }
-
-    @Override
     public List<Tag> getTags() {
         Connection connection = null;
 

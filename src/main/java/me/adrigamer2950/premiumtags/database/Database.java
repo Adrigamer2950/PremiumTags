@@ -28,8 +28,6 @@ public abstract class Database {
 
     public abstract void removeTag(String id);
 
-    public abstract Tag getTag(String id);
-
     public abstract List<Tag> getTags();
 
     public abstract void updatePlayerTags(UUID uuid, List<Tag> tags);
