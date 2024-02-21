@@ -184,13 +184,4 @@ public abstract class SqlLikeDatabase extends Database {
             throw new RuntimeException(e);
         }
     }
-
-    @Override
-    public void reloadData() {
-        plugin.tagList.clear();
-        plugin.playersUsingTags.clear();
-
-        loadTags();
-        loadPlayerData();
-    }
 }

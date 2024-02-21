@@ -36,7 +36,13 @@ public abstract class Database {
 
     public abstract void loadPlayerData();
 
-    public abstract void reloadData();
+    public void reloadData() {
+        plugin.tagList.clear();
+        plugin.playersUsingTags.clear();
+
+        loadTags();
+        loadPlayerData();
+    }
 
     public static Database getDatabase(PremiumTags plugin) throws SQLException, ClassNotFoundException {
         if (plugin.config.Database.H2)
