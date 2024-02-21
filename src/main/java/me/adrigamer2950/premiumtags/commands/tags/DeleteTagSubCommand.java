@@ -42,7 +42,7 @@ public class DeleteTagSubCommand extends SubCommand {
         ((PremiumTags) getPlugin()).database.removeTag(t.getId());
 
         ((PremiumTags) getPlugin()).playersUsingTags.forEach((uuid, tags) -> {
-            if(tags.stream().map(Tag::getId).toList().contains(t.getId())) tags.remove(t);
+            if (tags.stream().map(Tag::getId).toList().contains(t.getId())) tags.remove(t);
 
             ((PremiumTags) getPlugin()).playersUsingTags.put(uuid, tags);
         });

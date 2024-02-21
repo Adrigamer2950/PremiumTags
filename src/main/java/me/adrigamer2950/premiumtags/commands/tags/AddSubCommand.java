@@ -22,7 +22,7 @@ public class AddSubCommand extends SubCommand {
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
-        if(args.length < 2) {
+        if (args.length < 2) {
             sender.sendMessage(Colors.translateColors("&cYou must name a player!"));
             return true;
         }
@@ -33,7 +33,7 @@ public class AddSubCommand extends SubCommand {
             return true;
         }
 
-        if(args.length < 3) {
+        if (args.length < 3) {
             sender.sendMessage(Colors.translateColors("&cYou must specify a tag id"));
             return true;
         }
@@ -41,12 +41,12 @@ public class AddSubCommand extends SubCommand {
         String id = args[2];
         Tag tag = ((PremiumTags) getPlugin()).tagsManager.getTag(id);
 
-        if(tag == null) {
+        if (tag == null) {
             sender.sendMessage(Colors.translateColors("&cTag not found"));
             return true;
         }
 
-        if(((PremiumTags) getPlugin()).tagsManager.getPlayerTags(p).stream().map(Tag::getId).toList().contains(tag.getId())) {
+        if (((PremiumTags) getPlugin()).tagsManager.getPlayerTags(p).stream().map(Tag::getId).toList().contains(tag.getId())) {
             sender.sendMessage(Colors.translateColors("&cThat player already has that tag selected"));
             return true;
         }
@@ -61,10 +61,10 @@ public class AddSubCommand extends SubCommand {
 
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        if(args.length < 2) return null;
-        if(args.length < 3)
+        if (args.length < 2) return null;
+        if (args.length < 3)
             return Bukkit.getOnlinePlayers().stream().map(HumanEntity::getName).filter(name -> name.toLowerCase().startsWith(args[1])).collect(Collectors.toList());
-        if(args.length < 4)
+        if (args.length < 4)
             return ((PremiumTags) getPlugin()).tagsManager.getTagList().stream().map(Tag::getId).filter(id -> id.toLowerCase().startsWith(args[2])).collect(Collectors.toList());
 
         return null;

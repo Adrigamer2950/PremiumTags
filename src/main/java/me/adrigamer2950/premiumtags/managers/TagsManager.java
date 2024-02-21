@@ -25,7 +25,7 @@ public class TagsManager {
 
         plugin.tagList.sort((tag1, tag2) -> tag2.getPriority() - tag1.getPriority());
 
-        if(saveToDB) plugin.database.saveTags();
+        if (saveToDB) plugin.database.saveTags();
     }
 
     public void unRegisterTag(Tag t, boolean saveToDB) {
@@ -33,7 +33,7 @@ public class TagsManager {
 
         plugin.tagList.remove(t);
 
-        if(saveToDB) plugin.database.saveTags();
+        if (saveToDB) plugin.database.saveTags();
     }
 
     public void setTagToPlayer(UUID uuid, Tag tag) {

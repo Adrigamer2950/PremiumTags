@@ -22,12 +22,12 @@ public class ListSubCommand extends SubCommand {
 
     @Override
     public boolean execute(CommandSender sender, String s, String[] args) {
-        if(args.length < 2) {
+        if (args.length < 2) {
             List<Tag> tags = ((PremiumTags) getPlugin()).tagList;
 
             sender.sendMessage(Colors.translateColors("&aTag list:"));
 
-            for(Tag t : tags) {
+            for (Tag t : tags) {
                 sender.sendMessage(Colors.translateColors(String.format("&f| &6%s&7: &6%s", t.getId(), "&7[&r" + t.getFormatted() + "&7]&r")));
             }
         } else {
@@ -63,8 +63,8 @@ public class ListSubCommand extends SubCommand {
 
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        if(args.length < 2) return null;
-        if(args.length < 3)
+        if (args.length < 2) return null;
+        if (args.length < 3)
             return Bukkit.getOnlinePlayers().stream().map(HumanEntity::getName).filter(name -> name.toLowerCase().startsWith(args[1])).collect(Collectors.toList());
 
         return null;

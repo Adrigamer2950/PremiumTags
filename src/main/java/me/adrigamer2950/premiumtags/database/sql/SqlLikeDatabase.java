@@ -54,8 +54,11 @@ public abstract class SqlLikeDatabase extends Database {
 
             connection.close();
         } catch (SQLException | ClassNotFoundException e) {
-            if(connection != null)
-                try { connection.close(); }catch (SQLException ignored) {}
+            if (connection != null)
+                try {
+                    connection.close();
+                } catch (SQLException ignored) {
+                }
 
             throw new RuntimeException(e);
         }
@@ -74,7 +77,7 @@ public abstract class SqlLikeDatabase extends Database {
 
             ResultSet result = statement.executeQuery();
 
-            if(result.next()) {
+            if (result.next()) {
                 String tag = result.getString(2);
                 String description = result.getString(3);
                 int priority = result.getInt(4);
@@ -84,8 +87,11 @@ public abstract class SqlLikeDatabase extends Database {
 
             connection.close();
         } catch (ClassNotFoundException | SQLException e) {
-            if(connection != null)
-                try { connection.close(); }catch (SQLException ignored) {}
+            if (connection != null)
+                try {
+                    connection.close();
+                } catch (SQLException ignored) {
+                }
 
             throw new RuntimeException(e);
         }
@@ -106,7 +112,7 @@ public abstract class SqlLikeDatabase extends Database {
 
             List<Tag> tags = new ArrayList<>();
 
-            while(result.next()) {
+            while (result.next()) {
                 String id = result.getString(1);
                 String tag = result.getString(2);
                 String description = result.getString(3);
@@ -117,8 +123,11 @@ public abstract class SqlLikeDatabase extends Database {
 
             return tags;
         } catch (ClassNotFoundException | SQLException e) {
-            if(connection != null)
-                try { connection.close(); }catch (SQLException ignored) {}
+            if (connection != null)
+                try {
+                    connection.close();
+                } catch (SQLException ignored) {
+                }
 
             throw new RuntimeException(e);
         }
@@ -136,7 +145,7 @@ public abstract class SqlLikeDatabase extends Database {
 
             ResultSet result = statement.executeQuery();
 
-            while(result.next()) {
+            while (result.next()) {
                 uuidS = result.getString(1);
 
                 UUID uuid = UUID.fromString(uuidS);
@@ -158,13 +167,19 @@ public abstract class SqlLikeDatabase extends Database {
 
                 statement.executeUpdate();
             } catch (SQLException ex) {
-                try { connection.close(); } catch (SQLException ignored) {}
+                try {
+                    connection.close();
+                } catch (SQLException ignored) {
+                }
 
                 throw new RuntimeException(ex);
             }
         } catch (ClassNotFoundException | SQLException e) {
-            if(connection != null)
-                try { connection.close(); }catch (SQLException ignored) {}
+            if (connection != null)
+                try {
+                    connection.close();
+                } catch (SQLException ignored) {
+                }
 
             throw new RuntimeException(e);
         }

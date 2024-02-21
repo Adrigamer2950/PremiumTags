@@ -140,8 +140,11 @@ public class MySQLDatabase extends SqlLikeDatabase {
 
             connection.close();
         } catch (SQLException | ClassNotFoundException e) {
-            if(connection != null)
-                try { connection.close(); }catch (SQLException ignored) {}
+            if (connection != null)
+                try {
+                    connection.close();
+                } catch (SQLException ignored) {
+                }
 
             throw new RuntimeException(e);
         }

@@ -39,7 +39,7 @@ public abstract class Database {
     public abstract void reloadData();
 
     public static Database getDatabase(PremiumTags plugin) throws SQLException, ClassNotFoundException {
-        if(plugin.config.Database.H2)
+        if (plugin.config.Database.H2)
             return new H2Database(plugin);
         else
             return new MySQLDatabase(plugin);
