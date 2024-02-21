@@ -1,6 +1,6 @@
 package me.adrigamer2950.premiumtags.objects;
 
-public class Tag {
+public final class Tag {
 
     private final String id;
     private final String formatted;
