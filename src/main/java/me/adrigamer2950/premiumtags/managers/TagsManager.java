@@ -28,12 +28,14 @@ public class TagsManager {
         if (saveToDB) plugin.database.saveTags();
     }
 
-    public void unRegisterTag(Tag t, boolean saveToDB) {
+    public void unRegisterTag(Tag t) {
         Objects.requireNonNull(t);
 
         plugin.tagList.remove(t);
 
-        if (saveToDB) plugin.database.saveTags();
+        plugin.database.removeTag(t.getId());
+
+        plugin.database.saveTags();
     }
 
     public void setTagToPlayer(UUID uuid, Tag tag) {

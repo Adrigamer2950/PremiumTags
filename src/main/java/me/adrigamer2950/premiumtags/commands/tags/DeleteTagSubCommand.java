@@ -37,9 +37,7 @@ public class DeleteTagSubCommand extends SubCommand {
             return true;
         }
 
-        ((PremiumTags) getPlugin()).tagsManager.unRegisterTag(t, true);
-
-        ((PremiumTags) getPlugin()).database.removeTag(t.getId());
+        ((PremiumTags) getPlugin()).tagsManager.unRegisterTag(t);
 
         ((PremiumTags) getPlugin()).playersUsingTags.forEach((uuid, tags) -> {
             if (tags.stream().map(Tag::getId).toList().contains(t.getId())) tags.remove(t);
