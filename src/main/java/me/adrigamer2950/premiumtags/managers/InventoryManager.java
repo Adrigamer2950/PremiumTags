@@ -2,7 +2,7 @@ package me.adrigamer2950.premiumtags.managers;
 
 import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.premiumtags.PremiumTags;
-import me.adrigamer2950.premiumtags.objects.InvHolder;
+import me.adrigamer2950.premiumtags.objects.SelectionInventoryHolder;
 import me.adrigamer2950.premiumtags.objects.Tag;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
@@ -38,7 +38,7 @@ public class InventoryManager implements Listener {
     }
 
     public void openInventory(Player p) {
-        p.openInventory(new InvHolder(plugin).getInventory());
+        p.openInventory(new SelectionInventoryHolder(plugin).getInventory());
     }
 
     @EventHandler
@@ -47,7 +47,7 @@ public class InventoryManager implements Listener {
             return;
 
         if (e.getClickedInventory() == null
-                || !(e.getClickedInventory().getHolder() instanceof InvHolder)
+                || !(e.getClickedInventory().getHolder() instanceof SelectionInventoryHolder)
                 || e.getClickedInventory().getItem(e.getRawSlot()) == null
         )
             return;

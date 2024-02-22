@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("DataFlowIssue")
-public class InvHolder implements InventoryHolder {
+public class SelectionInventoryHolder implements InventoryHolder {
 
     private final Inventory inv;
 
-    public InvHolder(PremiumTags plugin) {
+    public SelectionInventoryHolder(PremiumTags plugin) {
         this.inv = Bukkit.createInventory(this, 54, Colors.translateColors("&1Premium&4Tags"));
 
         ItemStack stack;
