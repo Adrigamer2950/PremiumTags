@@ -83,7 +83,6 @@ public final class PremiumTags extends JavaPlugin {
     @Override
     public void onDisable() {
         this.configManager.saveConfigFiles();
-        this.database.saveTags();
 
         papi.unregister();
 
