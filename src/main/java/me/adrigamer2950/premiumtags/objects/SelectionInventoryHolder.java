@@ -20,9 +20,13 @@ import java.util.List;
 public class SelectionInventoryHolder implements InventoryHolder {
 
     private final Inventory inv;
+    private final int currentPage;
 
-    public SelectionInventoryHolder(PremiumTags plugin) {
-        this.inv = Bukkit.createInventory(this, 54, Colors.translateColors("&1Premium&4Tags"));
+    public SelectionInventoryHolder(PremiumTags plugin, int page) {
+        this.inv = Bukkit.createInventory(this, 54, Colors.translateColors(plugin.config.PlaceHolders.TAG_SELECTION_INVENTORY_TITLE()));
+        this.currentPage = page;
+
+        if (page < 0) throw new IndexOutOfBoundsException("Page cannot be lower than zero");
 
         ItemStack stack;
         ItemMeta meta;
@@ -39,17 +43,43 @@ public class SelectionInventoryHolder implements InventoryHolder {
             stack = new ItemStack(Material.PAPER, 1);
             meta = stack.getItemMeta();
 
-            meta.setDisplayName(Colors.translateColors("&ePages: &l" + plugin.tagList.size() / 28));
+            meta.setDisplayName(Colors.translateColors(String.format(
+                    "&ePage: &a&l%s&e/&a&l%s",
+                    this.getPage() + 1,
+                    (plugin.tagList.size() / 28) + 1
+            )));
             stack.setItemMeta(meta);
 
             inv.setItem(49, stack);
+
+            if (page > 0) {
+                stack = new ItemStack(Material.ARROW, 1);
+                meta = stack.getItemMeta();
+
+                meta.setDisplayName(Colors.translateColors("&ePrevious Page"));
+                stack.setItemMeta(meta);
+
+                inv.setItem(48, stack);
+            }
+
+            if ((page == 0 && plugin.tagList.size() > 28) || (page > 0 && plugin.tagList.size() * page < plugin.tagList.size())) {
+                stack = new ItemStack(Material.ARROW, 1);
+                meta = stack.getItemMeta();
+
+                meta.setDisplayName(Colors.translateColors("&eNext Page"));
+                stack.setItemMeta(meta);
+
+                inv.setItem(50, stack);
+            }
         }
 
-        for (int i = 0; i < plugin.tagList.size(); i++) {
+        List<Tag> tags = new Pagination<>(28, plugin.tagList).getPage(this.getPage());
+
+        for (int i = 0; i < tags.size(); i++) {
             stack = new ItemStack(Material.NAME_TAG, 1);
             meta = stack.getItemMeta();
 
-            Tag tag = plugin.tagList.get(i);
+            Tag tag = tags.get(i);
 
             List<String> lore = new ArrayList<>();
 
@@ -59,8 +89,8 @@ public class SelectionInventoryHolder implements InventoryHolder {
             lore.add(Colors.translateColors(""));
 
             if (tag.getDescription() != null
-                    && !tag.getDescription().equals("")
-                    && !tag.getDescription().replaceAll(" ", "").equals("")) {
+                    && !tag.getDescription().isEmpty()
+                    && !tag.getDescription().replaceAll(" ", "").isEmpty()) {
                 lore.add(Colors.translateColors("&bDescription: "));
                 lore.add(Colors.translateColors("&7" + tag.getDescription()));
                 lore.add(Colors.translateColors(""));
@@ -81,5 +111,9 @@ public class SelectionInventoryHolder implements InventoryHolder {
     @Override
     public Inventory getInventory() {
         return this.inv;
+    }
+
+    public int getPage() {
+        return this.currentPage;
     }
 }

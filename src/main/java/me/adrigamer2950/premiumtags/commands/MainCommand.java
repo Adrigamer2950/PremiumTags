@@ -3,6 +3,7 @@ package me.adrigamer2950.premiumtags.commands;
 import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.premiumtags.PremiumTags;
 import me.adrigamer2950.premiumtags.commands.tags.*;
+import me.adrigamer2950.premiumtags.objects.SelectionInventoryHolder;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -31,7 +32,7 @@ public class MainCommand extends Command {
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
         if (args.length < 1 && sender instanceof Player) {
-            ((PremiumTags) getPlugin()).invManager.openInventory((Player) sender);
+            ((PremiumTags) getPlugin()).invManager.openInventory((Player) sender, new SelectionInventoryHolder((PremiumTags) getPlugin(), 0));
 
             return true;
         }

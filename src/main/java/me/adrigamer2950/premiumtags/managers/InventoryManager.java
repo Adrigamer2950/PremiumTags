@@ -4,12 +4,14 @@ import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.premiumtags.PremiumTags;
 import me.adrigamer2950.premiumtags.objects.SelectionInventoryHolder;
 import me.adrigamer2950.premiumtags.objects.Tag;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -37,8 +39,8 @@ public class InventoryManager implements Listener {
         this.plugin = plugin;
     }
 
-    public void openInventory(Player p) {
-        p.openInventory(new SelectionInventoryHolder(plugin).getInventory());
+    public void openInventory(Player p, InventoryHolder holder) {
+        p.openInventory(holder.getInventory());
     }
 
     @EventHandler
@@ -47,50 +49,60 @@ public class InventoryManager implements Listener {
             return;
 
         if (e.getClickedInventory() == null
-                || !(e.getClickedInventory().getHolder() instanceof SelectionInventoryHolder)
                 || e.getClickedInventory().getItem(e.getRawSlot()) == null
         )
             return;
 
-        e.setCancelled(true);
-
-        ItemStack stack = e.getClickedInventory().getItem(e.getRawSlot());
-
-        if (stack == null)
-            return;
-
-        if (stack.getItemMeta() == null)
-            return;
-
-        if (!stack.getItemMeta().getPersistentDataContainer()
-                .has(new NamespacedKey(plugin, "tag_item"), PersistentDataType.STRING)
-        )
-            return;
-
-        Tag tag = plugin.tagsManager.getTag(stack.getItemMeta().getPersistentDataContainer()
-                .get(new NamespacedKey(plugin, "tag_item"), PersistentDataType.STRING));
-
-        if (tag == null) {
+        if (e.getClickedInventory().getHolder() instanceof SelectionInventoryHolder holder) {
             e.setCancelled(true);
 
-            plugin.invManager.openInventory(p);
+            ItemStack stack = e.getClickedInventory().getItem(e.getRawSlot());
 
-            return;
+            if (stack == null)
+                return;
+
+            if (stack.getItemMeta() == null)
+                return;
+
+            if (stack.getType().equals(Material.ARROW)) {
+                if (!(e.getRawSlot() == 50 || e.getRawSlot() == 48)) return;
+
+                p.closeInventory();
+                plugin.invManager.openInventory(p, new SelectionInventoryHolder(plugin, holder.getPage() + (e.getRawSlot() == 50 ? 1 : -1)));
+
+                return;
+            }
+
+            if (!stack.getItemMeta().getPersistentDataContainer()
+                    .has(new NamespacedKey(plugin, "tag_item"), PersistentDataType.STRING)
+            )
+                return;
+
+            Tag tag = plugin.tagsManager.getTag(stack.getItemMeta().getPersistentDataContainer()
+                    .get(new NamespacedKey(plugin, "tag_item"), PersistentDataType.STRING));
+
+            if (tag == null) {
+                e.setCancelled(true);
+
+                plugin.invManager.openInventory(p, new SelectionInventoryHolder(plugin, holder.getPage()));
+
+                return;
+            }
+
+            if (plugin.tagsManager.getPlayerTags(p).stream().map(Tag::getId).toList().contains(tag.getId())) {
+                plugin.tagsManager.removeTagFromPlayer(p.getUniqueId(), tag);
+                p.sendMessage(Colors.translateColors(
+                        String.format("&cTag &7[%s&7] &csuccessfully removed", tag.getFormatted())
+                ));
+            } else {
+                plugin.tagsManager.setTagToPlayer(p.getUniqueId(), tag);
+                p.sendMessage(Colors.translateColors(
+                        String.format("&aTag &7[%s&7] &asuccessfully set", tag.getFormatted())
+                ));
+            }
+
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
+            p.closeInventory();
         }
-
-        if (plugin.tagsManager.getPlayerTags(p).stream().map(Tag::getId).toList().contains(tag.getId())) {
-            plugin.tagsManager.removeTagFromPlayer(p.getUniqueId(), tag);
-            p.sendMessage(Colors.translateColors(
-                    String.format("&cTag &7[%s&7] &csuccessfully removed", tag.getFormatted())
-            ));
-        } else {
-            plugin.tagsManager.setTagToPlayer(p.getUniqueId(), tag);
-            p.sendMessage(Colors.translateColors(
-                    String.format("&aTag &7[%s&7] &asuccessfully set", tag.getFormatted())
-            ));
-        }
-
-        p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
-        p.closeInventory();
     }
 }
