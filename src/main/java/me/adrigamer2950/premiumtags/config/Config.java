@@ -6,6 +6,7 @@ import me.adrigamer2950.premiumtags.database.DatabaseType;
 public class Config {
 
     public final Database Database;
+    public final PlaceHolders PlaceHolders;
 
     public Config(YamlConfig yaml) {
         this.Database = new Database(
@@ -16,6 +17,9 @@ public class Config {
                 yaml.getYaml().getString("database.mysql.username"),
                 yaml.getYaml().getString("database.mysql.password")
         );
+        this.PlaceHolders = new PlaceHolders(
+                yaml.getYaml().getString("placeholders.tag_selection_inventory_title")
+        );
     }
 
     public record Database(
@@ -25,5 +29,9 @@ public class Config {
             String MYSQL_DATABASE,
             String MYSQL_USERNAME,
             String MYSQL_PASSWORD
+    ) {}
+
+    public record PlaceHolders(
+            String TAG_SELECTION_INVENTORY_TITLE
     ) {}
 }
