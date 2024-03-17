@@ -13,10 +13,10 @@ public class MySQLDatabase extends SqlLikeDatabase {
         super(
                 plugin, DatabaseType.MYSQL,
                 "jdbc:mysql://" +
-                        plugin.config.Database.MYSQL_HOSTNAME +
+                        plugin.config.Database.MYSQL_HOSTNAME() +
                         ":" +
-                        plugin.config.Database.MYSQL_PORT + "/" +
-                        plugin.config.Database.MYSQL_DATABASE
+                        plugin.config.Database.MYSQL_PORT() + "/" +
+                        plugin.config.Database.MYSQL_DATABASE()
         );
     }
 
@@ -26,7 +26,7 @@ public class MySQLDatabase extends SqlLikeDatabase {
 
         Connection connection;
         try {
-            connection = DriverManager.getConnection(this.url, plugin.config.Database.MYSQL_USERNAME, plugin.config.Database.MYSQL_PASSWORD);
+            connection = DriverManager.getConnection(this.url, plugin.config.Database.MYSQL_USERNAME(), plugin.config.Database.MYSQL_PASSWORD());
         } catch (SQLException e) {
             LOGGER.log("Error while trying to connect to the MySQL database: " + e);
             throw new RuntimeException(e);
