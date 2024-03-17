@@ -44,7 +44,7 @@ public abstract class Database {
     }
 
     public static Database getDatabase(PremiumTags plugin) throws SQLException, ClassNotFoundException {
-        switch (plugin.config.Database.DRIVER) {
+        switch (plugin.config.Database.DRIVER()) {
             case H2 -> {
                 return new H2Database(plugin);
             }
