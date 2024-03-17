@@ -4,6 +4,7 @@ import me.adrigamer2950.adriapi.api.logger.SubLogger;
 import me.adrigamer2950.premiumtags.PremiumTags;
 import me.adrigamer2950.premiumtags.database.sql.H2Database;
 import me.adrigamer2950.premiumtags.database.sql.MySQLDatabase;
+import me.adrigamer2950.premiumtags.database.yaml.YAMLDatabase;
 import me.adrigamer2950.premiumtags.objects.Tag;
 
 import java.sql.SQLException;
@@ -43,9 +44,18 @@ public abstract class Database {
     }
 
     public static Database getDatabase(PremiumTags plugin) throws SQLException, ClassNotFoundException {
-        if (plugin.config.Database.H2)
-            return new H2Database(plugin);
-        else
-            return new MySQLDatabase(plugin);
+        switch (plugin.config.Database.DRIVER) {
+            case H2 -> {
+                return new H2Database(plugin);
+            }
+            case YAML -> {
+                return new YAMLDatabase(plugin);
+            }
+            case MYSQL -> {
+                return new MySQLDatabase(plugin);
+            }
+        }
+
+        return null;
     }
 }

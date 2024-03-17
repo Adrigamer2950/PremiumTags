@@ -1,5 +1,5 @@
 database:
-  h2: true
+  driver: H2 # Can be H2, YAML or MySQL (not case-sensitive)
   mysql:
     hostname: "localhost"
     port: 3306
