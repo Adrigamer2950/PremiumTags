@@ -3,6 +3,7 @@ package me.adrigamer2950.premiumtags.commands;
 import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.adriapi.api.command.SubCommand;
 import me.adrigamer2950.premiumtags.commands.other.ReloadSubCommand;
+import me.adrigamer2950.premiumtags.commands.other.VersionSubCommand;
 import me.adrigamer2950.premiumtags.commands.player.AddSubCommand;
 import me.adrigamer2950.premiumtags.commands.player.RemoveSubCommand;
 import me.adrigamer2950.premiumtags.commands.tags.ListSubCommand;
@@ -33,6 +34,7 @@ public class MainCommand extends Command {
 
         // Miscellaneous
         addSubCommand(new ReloadSubCommand(this, "reload"));
+        addSubCommand(new VersionSubCommand(this, "version"));
 
         setHelpSubCommand(new HelpSubCommand(this, "help"));
     }
@@ -64,7 +66,8 @@ public class MainCommand extends Command {
                     "&f&l| &6/%s remove <player> <tag>",
                     "&f&l| &6/%s tag",
                     "&f&l| &6/%s list [player]",
-                    "&f&l| &6/%s reload"
+                    "&f&l| &6/%s reload",
+                    "&f&l| &6/%s version"
             ));
 
             return true;
