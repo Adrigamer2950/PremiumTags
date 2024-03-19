@@ -19,6 +19,7 @@ public class ReloadSubCommand extends SubCommand {
     public boolean execute(CommandSender commandSender, String s, String[] strings) {
         try {
             ((PremiumTags) getPlugin()).database.reloadData();
+            getPlugin().reloadConfig();
 
             commandSender.sendMessage(Colors.translateColors("&aConfig files and databases reloaded"));
         } catch (Exception e) {

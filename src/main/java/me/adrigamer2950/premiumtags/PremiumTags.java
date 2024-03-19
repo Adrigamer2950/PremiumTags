@@ -38,6 +38,8 @@ public final class PremiumTags extends JavaPlugin {
 
     private PAPIExpansion papi;
 
+    private YamlConfig configF;
+
     @Override
     public void onEnable() {
         this.tagList = new ArrayList<>();
@@ -51,7 +53,6 @@ public final class PremiumTags extends JavaPlugin {
 
         this.commandManager = new CommandManager(this);
 
-        this.commandManager.registerCommand(new MainCommand(this, "tags"));
         this.commandManager.registerCommand(new InventoryCommand(this, "tags"));
         this.commandManager.registerCommand(new MainCommand(this, "premiumtags", List.of("pt")));
 
@@ -59,7 +60,7 @@ public final class PremiumTags extends JavaPlugin {
 
         this.configManager = new ConfigManager(this);
 
-        YamlConfig configF = new YamlConfig(
+        this.configF = new YamlConfig(
                 this.getDataFolder().getAbsolutePath(),
                 "config",
                 this,
@@ -67,16 +68,13 @@ public final class PremiumTags extends JavaPlugin {
                 true
         );
 
+        this.reloadConfig();
+
         try {
-            configF.loadConfig();
-
-            this.config = new Config(configF);
-
             this.tagsManager = new TagsManager(this);
 
             this.database = Database.getDatabase(this);
-
-        } catch (IOException | SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
 
@@ -99,5 +97,16 @@ public final class PremiumTags extends JavaPlugin {
         this.database = null;
 
         LOGGER.log("&cDisabled");
+    }
+
+    @Override
+    public void reloadConfig() {
+        try {
+            configF.loadConfig();
+
+            this.config = new Config(configF);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
