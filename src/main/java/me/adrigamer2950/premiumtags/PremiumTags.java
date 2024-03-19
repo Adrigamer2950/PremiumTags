@@ -4,6 +4,7 @@ import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
 import me.adrigamer2950.adriapi.api.config.manager.ConfigManager;
 import me.adrigamer2950.adriapi.api.config.yaml.YamlConfig;
 import me.adrigamer2950.adriapi.api.logger.APILogger;
+import me.adrigamer2950.premiumtags.commands.InventoryCommand;
 import me.adrigamer2950.premiumtags.commands.MainCommand;
 import me.adrigamer2950.premiumtags.config.Config;
 import me.adrigamer2950.premiumtags.database.Database;
@@ -51,6 +52,8 @@ public final class PremiumTags extends JavaPlugin {
         this.commandManager = new CommandManager(this);
 
         this.commandManager.registerCommand(new MainCommand(this, "tags"));
+        this.commandManager.registerCommand(new InventoryCommand(this, "tags"));
+        this.commandManager.registerCommand(new MainCommand(this, "premiumtags", List.of("pt")));
 
         getServer().getPluginManager().registerEvents(new InventoryManager(this), this);
 

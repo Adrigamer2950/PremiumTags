@@ -19,7 +19,7 @@ public class CreateTagSubCommand extends SubCommand {
 
     @Override
     public boolean execute(CommandSender sender, String s, String[] args) {
-        args = Arrays.copyOfRange(args, 1, args.length);
+        args = Arrays.copyOfRange(args, 2, args.length);
 
         if (args.length == 0) {
             sender.sendMessage(Colors.translateColors("&cYou need to specify an id"));

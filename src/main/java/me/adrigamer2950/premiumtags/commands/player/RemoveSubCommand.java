@@ -1,4 +1,4 @@
-package me.adrigamer2950.premiumtags.commands.tags;
+package me.adrigamer2950.premiumtags.commands.player;
 
 import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.adriapi.api.command.Command;
@@ -14,9 +14,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AddSubCommand extends SubCommand {
+public class RemoveSubCommand extends SubCommand {
 
-    public AddSubCommand(Command parent, String name) {
+    public RemoveSubCommand(Command parent, String name) {
         super(parent, name);
     }
 
@@ -46,14 +46,14 @@ public class AddSubCommand extends SubCommand {
             return true;
         }
 
-        if (((PremiumTags) getPlugin()).tagsManager.getPlayerTags(p).stream().map(Tag::getId).toList().contains(tag.getId())) {
-            sender.sendMessage(Colors.translateColors("&cThat player already has that tag selected"));
+        if (!((PremiumTags) getPlugin()).tagsManager.getPlayerTags(p).stream().map(Tag::getId).toList().contains(tag.getId())) {
+            sender.sendMessage(Colors.translateColors("&cThat player doesn't have that tag selected"));
             return true;
         }
 
-        ((PremiumTags) getPlugin()).tagsManager.setTagToPlayer(p.getUniqueId(), tag);
+        ((PremiumTags) getPlugin()).tagsManager.removeTagFromPlayer(p.getUniqueId(), tag);
         sender.sendMessage(Colors.translateColors(
-                String.format("&aTag &7[%s&7] &awas added successfully to &6%s", tag.getFormatted(), p.getName())
+                String.format("&aTag &7[%s&7] &awas removed successfully from &6%s", tag.getFormatted(), p.getName())
         ));
 
         return true;
@@ -65,7 +65,11 @@ public class AddSubCommand extends SubCommand {
         if (args.length < 3)
             return Bukkit.getOnlinePlayers().stream().map(HumanEntity::getName).filter(name -> name.toLowerCase().startsWith(args[1])).collect(Collectors.toList());
         if (args.length < 4)
-            return ((PremiumTags) getPlugin()).tagsManager.getTagList().stream().map(Tag::getId).filter(id -> id.toLowerCase().startsWith(args[2])).collect(Collectors.toList());
+            return ((PremiumTags) getPlugin())
+                    .tagsManager.getTagList().stream().map(Tag::getId)
+                    .filter(tag ->
+                            ((PremiumTags) getPlugin()).tagsManager.getPlayerTags((OfflinePlayer) sender).stream().map(Tag::getId).collect(Collectors.toSet()).contains(tag))
+                    .filter(id -> id.toLowerCase().startsWith(args[2])).collect(Collectors.toList());
 
         return null;
     }

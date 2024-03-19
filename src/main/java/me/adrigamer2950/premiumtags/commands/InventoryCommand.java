@@ -2,30 +2,29 @@ package me.adrigamer2950.premiumtags.commands;
 
 import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.adriapi.api.command.Command;
-import me.adrigamer2950.adriapi.api.command.SubCommand;
 import me.adrigamer2950.premiumtags.PremiumTags;
+import me.adrigamer2950.premiumtags.objects.SelectionInventoryHolder;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class ReloadSubCommand extends SubCommand {
+public class InventoryCommand extends Command {
 
-    public ReloadSubCommand(Command parent, String name) {
-        super(parent, name);
+    public InventoryCommand(@NotNull Plugin pl, @NotNull String name) {
+        super(pl, name);
     }
 
     @Override
     public boolean execute(CommandSender commandSender, String s, String[] strings) {
-        try {
-            ((PremiumTags) getPlugin()).database.reloadData();
-
-            commandSender.sendMessage(Colors.translateColors("&aConfig files and databases reloaded"));
-        } catch (Exception e) {
-            commandSender.sendMessage(Colors.translateColors("&cAn error ocurred while trying to reload config files and databases, check console for more info"));
-
-            throw new RuntimeException(e);
+        if(!(commandSender instanceof Player)) {
+            commandSender.sendMessage(Colors.translateColors("&c&lThis command can only be executed as a player!"));
+            return true;
         }
+
+        ((PremiumTags) getPlugin()).invManager.openInventory((Player) commandSender, new SelectionInventoryHolder((PremiumTags) getPlugin(), 0));
 
         return true;
     }
