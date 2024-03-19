@@ -7,4 +7,4 @@ database:
     username: "root"
     password: ""
 placeholders:
-  tag_selection_inventory_title: "&6Select a tag"
+  tag_selection_inventory_title: "&b&lSelect a tag"
