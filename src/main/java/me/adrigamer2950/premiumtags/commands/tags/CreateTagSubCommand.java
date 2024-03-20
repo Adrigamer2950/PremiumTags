@@ -4,7 +4,7 @@ import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.adriapi.api.command.SubCommand;
 import me.adrigamer2950.premiumtags.PremiumTags;
-import me.adrigamer2950.premiumtags.objects.Tag;
+import me.adrigamer2950.premiumtags.objects.tag.Tag;
 import me.adrigamer2950.premiumtags.util.Permissions;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;

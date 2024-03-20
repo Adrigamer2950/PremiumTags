@@ -1,7 +1,7 @@
 package me.adrigamer2950.premiumtags.managers;
 
 import me.adrigamer2950.premiumtags.PremiumTags;
-import me.adrigamer2950.premiumtags.objects.Tag;
+import me.adrigamer2950.premiumtags.objects.tag.Tag;
 import org.bukkit.OfflinePlayer;
 
 import java.util.*;

@@ -10,7 +10,7 @@ import me.adrigamer2950.premiumtags.config.Config;
 import me.adrigamer2950.premiumtags.database.Database;
 import me.adrigamer2950.premiumtags.managers.InventoryManager;
 import me.adrigamer2950.premiumtags.managers.TagsManager;
-import me.adrigamer2950.premiumtags.objects.Tag;
+import me.adrigamer2950.premiumtags.objects.tag.Tag;
 import me.adrigamer2950.premiumtags.placeholderapi.PAPIExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;

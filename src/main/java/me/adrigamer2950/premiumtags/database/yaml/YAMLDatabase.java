@@ -4,7 +4,7 @@ import me.adrigamer2950.adriapi.api.config.yaml.YamlConfig;
 import me.adrigamer2950.premiumtags.PremiumTags;
 import me.adrigamer2950.premiumtags.database.Database;
 import me.adrigamer2950.premiumtags.database.DatabaseType;
-import me.adrigamer2950.premiumtags.objects.Tag;
+import me.adrigamer2950.premiumtags.objects.tag.Tag;
 
 import java.io.File;
 import java.io.IOException;

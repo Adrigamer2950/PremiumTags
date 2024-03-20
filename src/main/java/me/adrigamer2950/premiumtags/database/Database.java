@@ -5,7 +5,7 @@ import me.adrigamer2950.premiumtags.PremiumTags;
 import me.adrigamer2950.premiumtags.database.sql.H2Database;
 import me.adrigamer2950.premiumtags.database.sql.MySQLDatabase;
 import me.adrigamer2950.premiumtags.database.yaml.YAMLDatabase;
-import me.adrigamer2950.premiumtags.objects.Tag;
+import me.adrigamer2950.premiumtags.objects.tag.Tag;
 
 import java.sql.SQLException;
 import java.util.List;

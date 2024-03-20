@@ -2,8 +2,8 @@ package me.adrigamer2950.premiumtags.managers;
 
 import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.premiumtags.PremiumTags;
-import me.adrigamer2950.premiumtags.objects.SelectionInventoryHolder;
-import me.adrigamer2950.premiumtags.objects.Tag;
+import me.adrigamer2950.premiumtags.objects.inventory.SelectionInventoryHolder;
+import me.adrigamer2950.premiumtags.objects.tag.Tag;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;

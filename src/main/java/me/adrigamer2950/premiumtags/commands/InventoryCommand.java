@@ -3,7 +3,7 @@ package me.adrigamer2950.premiumtags.commands;
 import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.premiumtags.PremiumTags;
-import me.adrigamer2950.premiumtags.objects.SelectionInventoryHolder;
+import me.adrigamer2950.premiumtags.objects.inventory.SelectionInventoryHolder;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;

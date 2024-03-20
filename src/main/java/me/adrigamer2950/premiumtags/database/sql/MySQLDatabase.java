@@ -2,7 +2,7 @@ package me.adrigamer2950.premiumtags.database.sql;
 
 import me.adrigamer2950.premiumtags.PremiumTags;
 import me.adrigamer2950.premiumtags.database.DatabaseType;
-import me.adrigamer2950.premiumtags.objects.Tag;
+import me.adrigamer2950.premiumtags.objects.tag.Tag;
 
 import java.sql.*;
 import java.util.*;
