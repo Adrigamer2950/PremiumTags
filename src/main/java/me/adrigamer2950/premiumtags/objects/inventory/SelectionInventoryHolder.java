@@ -1,8 +1,9 @@
-package me.adrigamer2950.premiumtags.objects;
+package me.adrigamer2950.premiumtags.objects.inventory;
 
 import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.premiumtags.PremiumTags;
 import me.adrigamer2950.premiumtags.managers.InventoryManager;
+import me.adrigamer2950.premiumtags.objects.tag.Tag;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

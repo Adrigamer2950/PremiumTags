@@ -1,4 +1,4 @@
-package me.adrigamer2950.premiumtags.objects;
+package me.adrigamer2950.premiumtags.objects.inventory;
 
 import java.util.ArrayList;
 import java.util.List;

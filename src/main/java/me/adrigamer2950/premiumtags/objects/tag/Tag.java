@@ -1,4 +1,4 @@
-package me.adrigamer2950.premiumtags.objects;
+package me.adrigamer2950.premiumtags.objects.tag;
 
 public final class Tag {
 
@@ -6,12 +6,18 @@ public final class Tag {
     private final String formatted;
     private final String description;
     private final int priority;
+    private final boolean needsPerm;
 
     public Tag(String id, String formatted, String description, int priority) {
+        this(id, formatted, description, priority, false);
+    }
+
+    public Tag(String id, String formatted, String description, int priority, boolean needsPerm) {
         this.id = id;
         this.formatted = formatted;
         this.description = description;
         this.priority = priority;
+        this.needsPerm = needsPerm;
     }
 
     public String getId() {
@@ -28,5 +34,9 @@ public final class Tag {
 
     public int getPriority() {
         return this.priority;
+    }
+
+    public boolean isPermissionNeeded() {
+        return this.needsPerm;
     }
 }
