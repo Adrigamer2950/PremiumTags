@@ -5,6 +5,7 @@ import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.adriapi.api.command.SubCommand;
 import me.adrigamer2950.premiumtags.PremiumTags;
 import me.adrigamer2950.premiumtags.objects.Tag;
+import me.adrigamer2950.premiumtags.util.Permissions;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -22,6 +23,11 @@ public class ListSubCommand extends SubCommand {
 
     @Override
     public boolean execute(CommandSender sender, String s, String[] args) {
+        if (!sender.hasPermission(Permissions.ALL) || !sender.hasPermission(Permissions.LIST) || sender.isOp()) {
+            sender.sendMessage(Colors.translateColors("&cYou don't have permission to use this command!"));
+            return true;
+        }
+
         if (args.length < 2) {
             List<Tag> tags = ((PremiumTags) getPlugin()).tagList;
 

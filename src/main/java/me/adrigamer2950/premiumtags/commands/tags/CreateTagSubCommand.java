@@ -5,6 +5,7 @@ import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.adriapi.api.command.SubCommand;
 import me.adrigamer2950.premiumtags.PremiumTags;
 import me.adrigamer2950.premiumtags.objects.Tag;
+import me.adrigamer2950.premiumtags.util.Permissions;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,6 +20,11 @@ public class CreateTagSubCommand extends SubCommand {
 
     @Override
     public boolean execute(CommandSender sender, String s, String[] args) {
+        if(!sender.hasPermission(Permissions.ALL) || !sender.hasPermission(Permissions.MANAGE_TAGS) || sender.isOp()) {
+            sender.sendMessage(Colors.translateColors("&cYou don't have permission to use this command!"));
+            return true;
+        }
+
         args = Arrays.copyOfRange(args, 2, args.length);
 
         if (args.length == 0) {
