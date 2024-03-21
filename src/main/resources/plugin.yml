@@ -17,4 +17,8 @@ softdepend:
 
 commands:
   tags:
-    usage: /tags help
+    usage: /tags
+  premiumtags:
+    aliases:
+      - pt
+    usage: /pt help
