@@ -74,7 +74,9 @@ public class SelectionInventoryHolder implements InventoryHolder {
             }
         }
 
-        List<Tag> tags = new Pagination<>(28, plugin.tagList).getPage(this.getPage());
+        Pagination<Tag> pages = new Pagination<>(28, plugin.tagList);
+
+        List<Tag> tags = plugin.tagList.isEmpty() ? new ArrayList<>() : pages.getPage(this.getPage());
 
         for (int i = 0; i < tags.size(); i++) {
             stack = new ItemStack(Material.NAME_TAG, 1);
