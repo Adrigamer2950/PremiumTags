@@ -40,11 +40,9 @@ public class PAPIExpansion extends PlaceholderExpansion {
         if (params.equalsIgnoreCase("tag_id") || params.split("_")[0].equals("tag_id")) {
             Tag t = plugin.tagsManager.getPlayerMainTag(player);
 
-            String[] args = params.split("tag_id");
-
             if (t == null) return "";
 
-            return t.getId() + (!(args.length < 1) && args[1].equalsIgnoreCase("_spaced") ? " " : "");
+            return t.getId();
         }
         if (params.equalsIgnoreCase("tag") || params.split("_")[0].equalsIgnoreCase("tag")) {
             Tag t = plugin.tagsManager.getPlayerMainTag(player);
@@ -54,9 +52,13 @@ public class PAPIExpansion extends PlaceholderExpansion {
             if (t == null) return "";
 
             if (args.length >= 2 && args[1].equalsIgnoreCase("wrapped"))
-                return "&7[" + t.getFormatted() + "&7]" + (args.length > 2 && args[2].equalsIgnoreCase("spaced") ? " " : "");
+                return (args.length > 3 && args[2].equalsIgnoreCase("spaced") && args[3].equalsIgnoreCase("left") ? " " : "")
+                        + "&7[" + t.getFormatted() + "&7]"
+                        + (args.length > 3 && args[2].equalsIgnoreCase("spaced") && args[3].equalsIgnoreCase("right") ? " " : "");
 
-            return t.getFormatted() + (args.length >= 2 && args[1].equalsIgnoreCase("spaced") ? " " : "");
+            return (!(args.length < 2) && args[1].equalsIgnoreCase("spaced") && args[2].equalsIgnoreCase("left") ? " " : "")
+                    + t.getFormatted()
+                    + (!(args.length < 2) && args[1].equalsIgnoreCase("spaced") && args[2].equalsIgnoreCase("right") ? " " : "");
         }
 
         return null;
