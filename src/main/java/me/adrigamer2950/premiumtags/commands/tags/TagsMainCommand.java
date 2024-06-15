@@ -36,8 +36,13 @@ public class TagsMainCommand extends SubCommand {
         }
 
         @Override
-        public boolean execute(CommandSender commandSender, String s, String[] strings) {
-            HelpMessages.sendHelpMessage(commandSender, s, List.of(
+        public boolean execute(CommandSender sender, String s, String[] strings) {
+            if(!sender.hasPermission(Permissions.ALL) || !sender.hasPermission(Permissions.MANAGE_TAGS) || !sender.isOp()) {
+                sender.sendMessage(Colors.translateColors("&cYou don't have permission to use this command!"));
+                return true;
+            }
+
+            HelpMessages.sendHelpMessage(sender, s, List.of(
                     "&f&l| &6/%s tag create <id> <priority> <tag>",
                     "&f&l| &6/%s tag delete <id>"
             ));

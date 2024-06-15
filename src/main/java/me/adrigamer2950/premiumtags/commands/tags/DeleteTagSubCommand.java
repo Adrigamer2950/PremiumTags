@@ -20,7 +20,7 @@ public class DeleteTagSubCommand extends SubCommand {
 
     @Override
     public boolean execute(CommandSender sender, String s, String[] args) {
-        if(!sender.hasPermission(Permissions.ALL) || !sender.hasPermission(Permissions.MANAGE_TAGS) || sender.isOp()) {
+        if(!sender.hasPermission(Permissions.ALL) || !sender.hasPermission(Permissions.MANAGE_TAGS) || !sender.isOp()) {
             sender.sendMessage(Colors.translateColors("&cYou don't have permission to use this command!"));
             return true;
         }
