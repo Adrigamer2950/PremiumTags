@@ -50,8 +50,6 @@ public class H2Database extends SqlLikeDatabase {
             statement = connection.prepareStatement("create table if not exists tags (id varchar, tag varchar, description text, priority integer);");
 
             statement.execute();
-
-            connection.close();
         } catch (SQLException e) {
             LOGGER.log("Error while trying to create the tags table");
 
@@ -59,6 +57,8 @@ public class H2Database extends SqlLikeDatabase {
 
             throw new RuntimeException(e);
         }
+
+        connection.close();
     }
 
     @Override

@@ -86,6 +86,8 @@ public abstract class SqlLikeDatabase extends Database {
                 tags.add(new Tag(id, tag, description, priority));
             }
 
+            connection.close();
+
             return tags;
         } catch (ClassNotFoundException | SQLException e) {
             if (connection != null)
