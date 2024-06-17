@@ -84,8 +84,6 @@ public class InventoryManager implements Listener {
             if (tag == null) {
                 e.setCancelled(true);
 
-                plugin.invManager.openInventory(p, new SelectionInventoryHolder(plugin, holder.getPage()));
-
                 return;
             }
 
