@@ -1,33 +1,34 @@
+import xyz.jpenilla.runtask.task.AbstractRun
+
 //file:noinspection VulnerableLibrariesLocal
 //file:noinspection GroovyAssignabilityCheck
 //file:noinspection GroovyAccessibility
 plugins {
     id 'java'
+    id 'net.minecrell.plugin-yml.bukkit' version '0.6.0'
+    id "xyz.jpenilla.run-paper" version "2.3.1"
 }
 
 group = 'me.adrigamer2950'
-version = '1.0-SNAPSHOT'
+version = properties.get("version") + (
+        project.hasProperty("BUILD_NUMBER") ?
+                ("-DEV" + (
+                        project.property("BUILD_NUMBER") == "0" ? "" : ("-b" + project.property("BUILD_NUMBER")))
+                )
+                : ""
+)
+var description = properties.get("description")
+var author = properties.get("author")
+var mainClass = properties.get("main")
 
 repositories {
     mavenCentral()
     maven {
-        name = "spigotmc-repo"
-        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+        url = "https://repo.papermc.io/repository/maven-public/"
     }
     maven {
-        name = "sonatype"
-        url = "https://oss.sonatype.org/content/groups/public/"
-    }
-    maven {
-        url = uri("https://maven.pkg.github.com/Adrigamer2950/AdriAPI")
-        credentials {
-            username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-            password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
-        }
-    }
-    maven {
-        name = "placeholderapi"
-        url = "https://repo.extendedclip.com/content/repositories/placeholderapi/"
+        name = "devadri"
+        url = "https://repo.devadri.es/repository/releases"
     }
 }
 
@@ -35,17 +36,23 @@ dependencies {
     // JetBrains Annotations
     compileOnly "org.jetbrains:annotations:24.0.1"
 
-    // Spigot API
-    compileOnly "org.spigotmc:spigot-api:1.14.4-R0.1-SNAPSHOT"
+    // Paper API
+    //noinspection VulnerableLibrariesLocal
+    compileOnly "io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT"
 
     // AdriAPI
-    compileOnly "me.adrigamer2950:adriapi:1.1.1"
-
-    // PlaceHolderAPI
-    compileOnly "me.clip:placeholderapi:2.11.1"
+    compileOnly "me.adrigamer2950:AdriAPI:2.0.1"
 }
 
 def targetJavaVersion = 17
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+        options.encoding = 'UTF-8'
+    }
+}
+
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
@@ -55,23 +62,55 @@ java {
     }
 }
 
-tasks.withType(JavaCompile).configureEach {
-    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
-        options.release = targetJavaVersion
+bukkit {
+    name = rootProject.name
+    version = version
+    main = mainClass
+    apiVersion = "1.18"
+    author = this.author
+    description = this.description
+    website = "https://github.com/Adrigamer2950/" + rootProject.name
+    load = 'POSTWORLD'
+    foliaSupported = true
+    depend = ["AdriAPI"]
+}
+
+jar {
+    archiveBaseName.set(rootProject.name)
+    //noinspection GroovyAssignabilityCheck
+    archiveVersion.set(version)
+}
+
+runServer {
+    minecraftVersion("1.20.2")
+
+    downloadPlugins {
+        // AdriAPI
+        modrinth("adriapi", "2.0.1")
+
+        // ViaVersion
+        hangar("ViaVersion", "5.0.3")
     }
 }
 
-compileJava.options.encoding = 'UTF-8'
-
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
-}
-
-processResources {
-    def props = [version: version]
-    inputs.properties props
-    filteringCharset 'UTF-8'
-    filesMatching('plugin.yml') {
-        expand props
+tasks.withType(AbstractRun).configureEach {
+    javaLauncher = javaToolchains.launcherFor {
+        vendor = JvmVendorSpec.JETBRAINS
+        languageVersion = JavaLanguageVersion.of(21)
     }
+    jvmArgs(
+            // Hot Swap
+            "-XX:+AllowEnhancedClassRedefinition", "-XX:+AllowRedefinitionToAddDeleteMethods",
+
+            // Aikar Flags
+            "--add-modules=jdk.incubator.vector", "-XX:+UseG1GC", "-XX:+ParallelRefProcEnabled",
+            "-XX:MaxGCPauseMillis=200", "-XX:+UnlockExperimentalVMOptions", "-XX:+DisableExplicitGC",
+            "-XX:+AlwaysPreTouch", "-XX:G1NewSizePercent=30", "-XX:G1MaxNewSizePercent=40",
+            "-XX:G1HeapRegionSize=8M", "-XX:G1ReservePercent=20", "-XX:G1HeapWastePercent=5",
+            "-XX:G1MixedGCCountTarget=4", "-XX:InitiatingHeapOccupancyPercent=15",
+            "-XX:G1MixedGCLiveThresholdPercent=90", "-XX:G1RSetUpdatingPauseTimePercent=5",
+            "-XX:SurvivorRatio=32", "-XX:+PerfDisableSharedMem", "-XX:MaxTenuringThreshold=1",
+            "-Dusing.aikars.flags=https://mcflags.emc.gs", "-Daikars.new.flags=true"
+    )
+
 }
