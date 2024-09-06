@@ -41,6 +41,10 @@ dependencies {
 
     // AdriAPI
     compileOnly "me.adrigamer2950:AdriAPI:2.0.1"
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
 }
 
 def targetJavaVersion = 17
