@@ -1,8 +1,8 @@
-import xyz.jpenilla.runtask.task.AbstractRun
-
 //file:noinspection VulnerableLibrariesLocal
 //file:noinspection GroovyAssignabilityCheck
 //file:noinspection GroovyAccessibility
+import xyz.jpenilla.runtask.task.AbstractRun
+
 plugins {
     id 'java'
     id 'net.minecrell.plugin-yml.bukkit' version '0.6.0'
@@ -37,7 +37,6 @@ dependencies {
     compileOnly "org.jetbrains:annotations:24.0.1"
 
     // Paper API
-    //noinspection VulnerableLibrariesLocal
     compileOnly "io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT"
 
     // AdriAPI
@@ -77,7 +76,6 @@ bukkit {
 
 jar {
     archiveBaseName.set(rootProject.name)
-    //noinspection GroovyAssignabilityCheck
     archiveVersion.set(version)
 }
 
@@ -100,7 +98,7 @@ tasks.withType(AbstractRun).configureEach {
     }
     jvmArgs(
             // Hot Swap
-            "-XX:+AllowEnhancedClassRedefinition", "-XX:+AllowRedefinitionToAddDeleteMethods",
+            "-XX:+AllowEnhancedClassRedefinition",
 
             // Aikar Flags
             "--add-modules=jdk.incubator.vector", "-XX:+UseG1GC", "-XX:+ParallelRefProcEnabled",
