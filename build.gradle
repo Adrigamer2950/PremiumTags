@@ -76,6 +76,13 @@ bukkit {
     load = 'POSTWORLD'
     foliaSupported = true
     depend = ["AdriAPI"]
+
+    commands {
+        premiumtags {
+            usage = "/pt help"
+            aliases = ["pt"]
+        }
+    }
 }
 
 jar {
