@@ -5,6 +5,7 @@ import me.adrigamer2950.adriapi.api.user.User;
 import me.adrigamer2950.premiumtags.PTPlugin;
 import me.adrigamer2950.premiumtags.commands.tags.AddTagCommand;
 import me.adrigamer2950.premiumtags.commands.tags.ListTagsCommand;
+import me.adrigamer2950.premiumtags.commands.tags.RemoveTagCommand;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class MainCommand extends Command<PTPlugin> {
         // Manage tags
         addSubCommand(new ListTagsCommand(this, "list"));
         addSubCommand(new AddTagCommand(this, "add"));
+        addSubCommand(new RemoveTagCommand(this, "remove"));
     }
 
     @Override
