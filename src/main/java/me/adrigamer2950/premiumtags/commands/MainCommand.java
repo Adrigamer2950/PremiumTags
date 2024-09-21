@@ -1,6 +1,7 @@
 package me.adrigamer2950.premiumtags.commands;
 
 import me.adrigamer2950.adriapi.api.command.Command;
+import me.adrigamer2950.adriapi.api.command.SubCommand;
 import me.adrigamer2950.adriapi.api.user.User;
 import me.adrigamer2950.premiumtags.PTPlugin;
 import me.adrigamer2950.premiumtags.commands.tags.AddTagCommand;
@@ -28,6 +29,15 @@ public class MainCommand extends Command<PTPlugin> {
 
     @Override
     public List<String> tabComplete(@NotNull User user, @NotNull String label, @NotNull String[] args) {
-        return parseSubCommandsTabCompleter(user, label, args);
+        if (args.length > 1 && !args[0].isEmpty())
+            for (SubCommand<PTPlugin> cmd : this.getSubCommands())
+                if (cmd.getName().equals(args[0]))
+                    return cmd.tabComplete(user, label, args);
+
+        if (args.length < 2) {
+            return this.getSubCommands().stream().map(Command::getName).filter(name -> name.toLowerCase().startsWith(args[0].toLowerCase())).toList();
+        }
+
+        return null;
     }
 }

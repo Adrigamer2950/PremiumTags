@@ -6,6 +6,7 @@ import me.adrigamer2950.adriapi.api.user.User;
 import me.adrigamer2950.premiumtags.PTPlugin;
 import me.adrigamer2950.premiumtags.objects.Tag;
 import me.adrigamer2950.premiumtags.util.Permissions;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,5 +54,10 @@ public class AddTagCommand extends SubCommand<PTPlugin> {
         user.sendMessage("&aTag added successfully");
 
         return true;
+    }
+
+    @Override
+    public List<String> tabComplete(@NotNull User user, @NotNull String label, @NotNull String[] args) {
+        return List.of();
     }
 }
