@@ -3,6 +3,7 @@ package me.adrigamer2950.premiumtags.commands;
 import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.adriapi.api.user.User;
 import me.adrigamer2950.premiumtags.PTPlugin;
+import me.adrigamer2950.premiumtags.commands.tags.AddTagCommand;
 import me.adrigamer2950.premiumtags.commands.tags.ListTagsCommand;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,6 +16,7 @@ public class MainCommand extends Command<PTPlugin> {
 
         // Manage tags
         addSubCommand(new ListTagsCommand(this, "list"));
+        addSubCommand(new AddTagCommand(this, "add"));
     }
 
     @Override
