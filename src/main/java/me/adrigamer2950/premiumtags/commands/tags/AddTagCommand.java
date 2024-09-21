@@ -27,6 +27,7 @@ public class AddTagCommand extends SubCommand<PTPlugin> {
 
         List<String> _args = new ArrayList<>(Arrays.asList(args));
         _args.remove(0);
+        //noinspection ToArrayCallWithZeroLengthArrayArgument
         args = _args.toArray(new String[_args.size()]);
 
         if (args.length == 0) {
