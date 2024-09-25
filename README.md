@@ -5,10 +5,8 @@
 
 <h3 style="text-align: center;">Stand out among other players</h3>
 
-# Builds
-[![Dev Build Status](https://ci.devadri.es/job/PremiumTags-Dev/badge/icon?subject=Dev%20Build)](https://ci.devadri.es/job/PremiumTags-Dev/)
-[![Build Status](https://ci.devadri.es/job/PremiumTags-Release/badge/icon?subject=Release)](https://ci.devadri.es/job/PremiumTags-Release/)
+# Build
+![Build](https://github.com/Adrigamer2950/AdriAPI/actions/workflows/build.yml/badge.svg)
 
 # Resources
-- [CI Server](https://ci.devadri.es)
 - [Maven Repository](https://repo.devadri.es)
